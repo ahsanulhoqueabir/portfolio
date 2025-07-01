@@ -1,134 +1,164 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
+  Github,
+  Linkedin,
   Mail,
-  Phone,
+  Twitter,
   MapPin,
+  Code2,
+  Heart,
+  ArrowUp,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
+const footerLinks = {
+  navigation: [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Projects", href: "/projects" },
+    { name: "Skills", href: "/skills" },
+    { name: "Contact", href: "/contact" },
+  ],
+  resources: [
+    { name: "Blog", href: "/blog" },
+    { name: "Newsletter", href: "/newsletter" },
+    { name: "Resources", href: "/resources" },
+  ],
+};
+
+const socialLinks = [
+  {
+    icon: Github,
+    href: "https://github.com/ahsanulhoque",
+    label: "GitHub",
+  },
+  {
+    icon: Linkedin,
+    href: "https://linkedin.com/in/ahsanulhoque",
+    label: "LinkedIn",
+  },
+  {
+    icon: Twitter,
+    href: "https://twitter.com/ahsanulhoque",
+    label: "Twitter",
+  },
+  {
+    icon: Mail,
+    href: "mailto:hello@ahsanulhoque.dev",
+    label: "Email",
+  },
+];
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
 export default function Footer() {
   return (
-    <footer className=" py-12 border-t relative">
-      <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-4">
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center">
-              <div className="h-6 w-6 rounded-full bg-primary-bangladesh"></div>
-              <div className="ml-1 h-6 w-6 rounded-full bg-secondary-bangladesh"></div>
+    <footer className="bg-muted/30 border-t relative">
+      <div className="container px-4 mx-auto">
+        {/* Main Footer Content */}
+        <div className="py-12 lg:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            {/* Brand Section */}
+            <div className="col-span-1 sm:col-span-2 lg:col-span-2">
+              <Link href="/" className="flex items-center space-x-2 mb-4">
+                <Code2 className="h-6 w-6 text-primary" />
+                <span className="font-bold text-xl">Ahsanul</span>
+              </Link>
+              <p className="text-muted-foreground mb-6 max-w-md text-sm lg:text-base">
+                Full Stack Developer passionate about creating exceptional
+                digital experiences with clean code and modern design.
+              </p>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+                <MapPin className="h-4 w-4" />
+                <span>Dhaka, Bangladesh</span>
+              </div>
+              <div className="flex space-x-4">
+                {socialLinks.map((social) => (
+                  <Link
+                    key={social.label}
+                    href={social.href}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={social.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </Link>
+                ))}
+              </div>
             </div>
-            <h3 className="font-bold">Company</h3>
+
+            {/* Navigation Links */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-base lg:text-lg">Navigation</h3>
+              <ul className="space-y-3">
+                {footerLinks.navigation.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Resources Links */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-base lg:text-lg">Resources</h3>
+              <ul className="space-y-3">
+                {footerLinks.resources.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">motto</p>
-          <div className="flex space-x-4">
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Facebook size={18} />
-              <span className="sr-only">Facebook</span>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Twitter size={18} />
-              <span className="sr-only">Twitter</span>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Instagram size={18} />
-              <span className="sr-only">Instagram</span>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Youtube size={18} />
-              <span className="sr-only">YouTube</span>
-            </Link>
+        </div>
+
+        <Separator />
+
+        {/* Bottom Footer */}
+        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Ahsanul. All rights reserved.
+            </div>
           </div>
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="font-bold">Quick Links</h3>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <Link
-                href="/about"
-                className="text-muted-foreground hover:text-primary"
-              >
-                About Us
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/contact"
-                className="text-muted-foreground hover:text-primary"
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary"
-              >
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary"
-              >
-                Terms of Service
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="font-bold">Resources</h3>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary"
-              >
-                Events
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary"
-              >
-                Partnerships
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="font-bold">Contact Us</h3>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-center space-x-2">
-              <MapPin size={16} className="text-primary-bangladesh" />
-              <span className="text-muted-foreground">Dhaka, Bangladesh</span>
-            </li>
-            <li className="flex items-center space-x-2">
-              <Phone size={16} className="text-primary-bangladesh" />
-              <span className="text-muted-foreground">+880 123 456 7890</span>
-            </li>
-            <li className="flex items-center space-x-2">
-              <Mail size={16} className="text-primary-bangladesh" />
-              <span className="text-muted-foreground">info@example.com</span>
-            </li>
-          </ul>
+          <div className="flex items-center gap-4">
+            <div className="text-sm text-muted-foreground">
+              Available for freelance work
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={scrollToTop}
+              className="group hover:bg-primary hover:text-white transition-colors"
+            >
+              <ArrowUp className="h-4 w-4 group-hover:-translate-y-1 transition-transform" />
+              <span className="sr-only">Scroll to top</span>
+            </Button>
+          </div>
         </div>
       </div>
 
-      <div className="container mt-8 pt-8 border-t border-border/50">
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>
-            © {new Date().getFullYear()} Bangladesh AI Institute. All rights
-            reserved.
-          </p>
-        </div>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20" />
       </div>
     </footer>
   );
