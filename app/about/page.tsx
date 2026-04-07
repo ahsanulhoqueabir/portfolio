@@ -52,6 +52,7 @@ const experiences = [
     color: "bg-violet-500",
     accent: "text-violet-500",
     border: "border-violet-500/30",
+    topBar: "from-violet-500 to-indigo-500",
   },
 ];
 
@@ -339,7 +340,7 @@ export default function AboutPage() {
                     whileHover={{ y: -3, transition: { duration: 0.2 } }}
                   >
                     <Card className={`hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative`}>
-                      <div className={`absolute inset-x-0 top-0 h-1 ${exp.color.replace('bg-', 'bg-gradient-to-r from-')} to-indigo-500`} />
+                      <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${exp.topBar}`} />
                       <CardHeader className="pt-6">
                         <div className="flex justify-between items-start flex-wrap gap-3">
                           <div>
