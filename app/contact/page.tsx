@@ -192,17 +192,24 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen  ">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
-        <div className="container">
+      <section className="py-24 relative overflow-hidden dot-grid">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <motion.div
+          className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
+          style={{ background: "radial-gradient(circle, #7c3aed, #4f46e5)", top: "5%", right: "10%" }}
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 11, repeat: Infinity }}
+        />
+        <div className="container relative z-10">
           <motion.div
             className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
               Let's{" "}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
                 Connect
               </span>
             </h1>
@@ -210,13 +217,13 @@ export default function ContactPage() {
               Have a project in mind? I'd love to hear about it. Let's discuss
               how we can bring your ideas to life.
             </p>
-            <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4" />
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-muted/60 border border-border/60">
+                <Clock className="h-4 w-4 text-emerald-500" />
                 <span>Usually responds in 24h</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MessageSquare className="h-4 w-4" />
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-muted/60 border border-border/60">
+                <MessageSquare className="h-4 w-4 text-violet-500" />
                 <span>Available for freelance</span>
               </div>
             </div>
@@ -366,7 +373,7 @@ export default function ContactPage() {
 
                     <Button
                       type="submit"
-                      className="w-full group"
+                      className="w-full group bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/20"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
@@ -488,17 +495,20 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-24 bg-muted/20">
         <div className="container">
           <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
+              Frequently Asked{" "}
+              <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                Questions
+              </span>
             </h2>
             <p className="text-lg text-muted-foreground">
               Common questions about working with me
