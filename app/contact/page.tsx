@@ -28,7 +28,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
-import { sendContactForm } from "@/services/contacts.services";
+import { ContactsService } from "@/services/contacts.services";
 
 // Form validation schema
 const contactFormSchema = z.object({
@@ -88,7 +88,7 @@ export default function ContactPage() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const result = await sendContactForm(data);
+      const result = await ContactsService.sendContactForm(data);
 
       if (result.success) {
         setSubmitStatus({
