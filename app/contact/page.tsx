@@ -6,13 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
-  Mail,
-  Phone,
-  MapPin,
   Send,
-  Github,
-  Linkedin,
-  Twitter,
   Clock,
   MessageSquare,
   Calendar,
@@ -34,6 +28,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
+import { sendContactForm } from "@/services/contacts.services";
 
 // Form validation schema
 const contactFormSchema = z.object({
@@ -45,74 +40,11 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-const contactMethods = [
-  {
-    icon: Mail,
-    title: "Email",
-    description: "Send me an email anytime",
-    contact: "contact.ahsanul@gmail.com",
-    href: "mailto:contact.ahsanul@gmail.com",
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    icon: Phone,
-    title: "Phone",
-    description: "Call me during business hours",
-    contact: "+880 1875 507852",
-    href: "tel:+8801875507852",
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    icon: MapPin,
-    title: "Location",
-    description: "Based in Dhaka, Bangladesh",
-    contact: "Dhaka, Bangladesh",
-    href: "#",
-    color: "from-purple-500 to-pink-500",
-  },
-];
-
-const socialLinks = [
-  {
-    icon: Github,
-    name: "GitHub",
-    href: "https://github.com/ahsanulhoqueabir",
-    username: "@ahsanulhoqueabir",
-    color: "hover:text-gray-900 dark:hover:text-gray-100",
-  },
-  {
-    icon: Linkedin,
-    name: "LinkedIn",
-    href: "https://linkedin.com/in/ahsanulhoqueabir",
-    username: "ahsanulhoqueabir",
-    color: "hover:text-blue-600",
-  },
-  {
-    icon: Twitter,
-    name: "Twitter",
-    href: "https://x.com/Ahsanul_H_Abir",
-    username: "@Ahsanul_H_Abir",
-    color: "hover:text-blue-400",
-  },
-];
-
-const faqs = [
-  {
-    question: "What's your typical response time?",
-    answer:
-      "I usually respond to emails and messages within 24 hours during business days.",
-  },
-  {
-    question: "Do you work with international clients?",
-    answer:
-      "Yes! I work with clients from all around the world. I'm comfortable with different time zones and communication styles.",
-  },
-  {
-    question: "What's your preferred project communication method?",
-    answer:
-      "I prefer using email for formal communications and Slack or Discord for real-time project discussions.",
-  },
-];
+import {
+  contactMethods,
+  socialLinks,
+  faqs,
+} from "@/constants/contact.constant";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -156,17 +88,9 @@ export default function ContactPage() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const result = await sendContactForm(data);
 
-      const result = await response.json();
-
-      if (response.ok) {
+      if (result.success) {
         setSubmitStatus({
           type: "success",
           message:
@@ -196,7 +120,11 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
         <motion.div
           className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
-          style={{ background: "radial-gradient(circle, #7c3aed, #4f46e5)", top: "5%", right: "10%" }}
+          style={{
+            background: "radial-gradient(circle, #7c3aed, #4f46e5)",
+            top: "5%",
+            right: "10%",
+          }}
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 11, repeat: Infinity }}
         />

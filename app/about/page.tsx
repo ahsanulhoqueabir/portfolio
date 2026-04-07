@@ -1,16 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Download,
-  Award,
-  Users,
-  Coffee,
-  Code2,
-  Globe,
-  Heart,
-  Zap,
-} from "lucide-react";
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -38,85 +29,11 @@ const itemVariants = {
   },
 };
 
-const experiences = [
-  {
-    title: "Webmaster",
-    company: "IEEE Jagannath University",
-    period: "2024 - Present",
-    description:
-      "As the Webmaster of IEEE JnU Student Branch, I am responsible for developing and maintaining the organization's web presence. I lead a team of developers, implement modern web technologies, and ensure optimal performance and user experience.",
-    achievements: [
-      "Redesigned the official website to enhance user experience and accessibility.",
-      "Implemented a content management system for easy updates by non-technical members.",
-    ],
-    color: "bg-violet-500",
-    accent: "text-violet-500",
-    border: "border-violet-500/30",
-    topBar: "from-violet-500 to-indigo-500",
-  },
-];
-
-const values = [
-  {
-    icon: Code2,
-    title: "Clean Code",
-    description:
-      "I believe in writing code that is not only functional but also readable, maintainable, and elegant.",
-    gradient: "from-blue-500 to-cyan-500",
-    bg: "bg-blue-500/10",
-    iconColor: "text-blue-500",
-  },
-  {
-    icon: Users,
-    title: "Collaboration",
-    description:
-      "Great products are built by great teams. I thrive in collaborative environments and enjoy mentoring others.",
-    gradient: "from-emerald-500 to-teal-500",
-    bg: "bg-emerald-500/10",
-    iconColor: "text-emerald-500",
-  },
-  {
-    icon: Zap,
-    title: "Innovation",
-    description:
-      "I'm always exploring new technologies and approaches to solve problems more efficiently and effectively.",
-    gradient: "from-amber-500 to-orange-500",
-    bg: "bg-amber-500/10",
-    iconColor: "text-amber-500",
-  },
-  {
-    icon: Heart,
-    title: "User-Centric",
-    description:
-      "Every line of code I write is with the end user in mind, ensuring the best possible experience.",
-    gradient: "from-pink-500 to-rose-500",
-    bg: "bg-pink-500/10",
-    iconColor: "text-pink-500",
-  },
-];
-
-const stats = [
-  {
-    icon: Award,
-    label: "Years Experience",
-    value: "3+",
-    color: "text-violet-500",
-    bg: "bg-violet-500/10",
-    border: "border-violet-500/20",
-  },
-  {
-    icon: Users,
-    label: "Projects Completed",
-    value: "10+",
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/10",
-    border: "border-emerald-500/20",
-  },
-];
+import { experiences, values, aboutStats } from "@/constants/about.constant";
 
 export default function AboutPage() {
   const handleResumeDownload = () => {
-    const fileId = "1WyMQAe17ZWrXrgeH9Jf78C8nKAUO1pd6";
+    const fileId = "1-AqnRS_mDnDUJbE5JLMQspGv2CNW0aOj";
     const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
     const link = document.createElement("a");
     link.href = directDownloadUrl;
@@ -134,7 +51,11 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
         <motion.div
           className="absolute w-80 h-80 rounded-full blur-3xl opacity-20"
-          style={{ background: "radial-gradient(circle, #7c3aed, #4f46e5)", top: "10%", right: "10%" }}
+          style={{
+            background: "radial-gradient(circle, #7c3aed, #4f46e5)",
+            top: "10%",
+            right: "10%",
+          }}
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
@@ -162,16 +83,20 @@ export default function AboutPage() {
               variants={itemVariants}
               className="flex justify-center items-center gap-6 mb-12"
             >
-              {stats.map((stat) => (
+              {aboutStats.map((stat) => (
                 <motion.div
                   key={stat.label}
                   className={`text-center p-8 rounded-2xl border ${stat.border} ${stat.bg} min-w-[160px]`}
                   whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 >
-                  <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3 border ${stat.border}`}>
+                  <div
+                    className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3 border ${stat.border}`}
+                  >
                     <stat.icon className={`h-6 w-6 ${stat.color}`} />
                   </div>
-                  <div className={`text-3xl font-black ${stat.color} mb-1`}>{stat.value}</div>
+                  <div className={`text-3xl font-black ${stat.color} mb-1`}>
+                    {stat.value}
+                  </div>
                   <div className="text-sm text-muted-foreground font-medium">
                     {stat.label}
                   </div>
@@ -180,7 +105,10 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div variants={itemVariants} className="text-center">
-              <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+              <motion.div
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
                 <Button
                   size="lg"
                   className="group bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/25"
@@ -273,9 +201,13 @@ export default function AboutPage() {
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
                 <Card className="h-full border-border/60 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden relative">
-                  <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${value.gradient}`} />
+                  <div
+                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${value.gradient}`}
+                  />
                   <CardHeader className="pt-7">
-                    <div className={`w-12 h-12 rounded-xl ${value.bg} flex items-center justify-center mb-3`}>
+                    <div
+                      className={`w-12 h-12 rounded-xl ${value.bg} flex items-center justify-center mb-3`}
+                    >
                       <value.icon className={`h-6 w-6 ${value.iconColor}`} />
                     </div>
                     <CardTitle>{value.title}</CardTitle>
@@ -319,7 +251,11 @@ export default function AboutPage() {
                 className="relative mb-12 last:mb-0"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 viewport={{ once: true }}
               >
                 <div className="flex">
@@ -339,17 +275,30 @@ export default function AboutPage() {
                     className="flex-1"
                     whileHover={{ y: -3, transition: { duration: 0.2 } }}
                   >
-                    <Card className={`hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative`}>
-                      <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${exp.topBar}`} />
+                    <Card
+                      className={`hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative`}
+                    >
+                      <div
+                        className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${exp.topBar}`}
+                      />
                       <CardHeader className="pt-6">
                         <div className="flex justify-between items-start flex-wrap gap-3">
                           <div>
-                            <CardTitle className="text-lg">{exp.title}</CardTitle>
-                            <CardDescription className={`${exp.accent} font-semibold text-sm mt-1`}>
+                            <CardTitle className="text-lg">
+                              {exp.title}
+                            </CardTitle>
+                            <CardDescription
+                              className={`${exp.accent} font-semibold text-sm mt-1`}
+                            >
                               {exp.company}
                             </CardDescription>
                           </div>
-                          <Badge variant="secondary" className="text-xs shrink-0">{exp.period}</Badge>
+                          <Badge
+                            variant="secondary"
+                            className="text-xs shrink-0"
+                          >
+                            {exp.period}
+                          </Badge>
                         </div>
                       </CardHeader>
                       <CardContent>
@@ -357,11 +306,18 @@ export default function AboutPage() {
                           {exp.description}
                         </p>
                         <div className="space-y-2">
-                          <h4 className="font-semibold text-sm">Key Achievements:</h4>
+                          <h4 className="font-semibold text-sm">
+                            Key Achievements:
+                          </h4>
                           <ul className="space-y-2">
                             {exp.achievements.map((achievement, i) => (
-                              <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                <span className={`w-1.5 h-1.5 rounded-full ${exp.color} mt-1.5 shrink-0`} />
+                              <li
+                                key={i}
+                                className="flex items-start gap-2 text-sm text-muted-foreground"
+                              >
+                                <span
+                                  className={`w-1.5 h-1.5 rounded-full ${exp.color} mt-1.5 shrink-0`}
+                                />
                                 {achievement}
                               </li>
                             ))}
