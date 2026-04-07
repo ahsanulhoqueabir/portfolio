@@ -221,48 +221,50 @@ export default function SkillsPage() {
   return (
     <div className="min-h-screen  ">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
-        <div className="container">
+      <section className="py-24 relative overflow-hidden dot-grid">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <motion.div
+          className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
+          style={{ background: "radial-gradient(circle, #06b6d4, #0891b2)", top: "10%", left: "5%" }}
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 12, repeat: Infinity }}
+        />
+        <div className="container relative z-10">
           <motion.div
             className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
               Skills &{" "}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                 Expertise
               </span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-xl text-muted-foreground mb-10">
               A comprehensive overview of my technical skills, tools, and
               technologies I work with to deliver exceptional digital solutions.
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">8+</div>
-                <div className="text-sm text-muted-foreground">
-                  Frontend Technologies
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">6+</div>
-                <div className="text-sm text-muted-foreground">
-                  Backend Technologies
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">8+</div>
-                <div className="text-sm text-muted-foreground">Databases</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">10+</div>
-                <div className="text-sm text-muted-foreground">
-                  Tools & Platforms
-                </div>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { value: "8+", label: "Frontend Technologies", color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20" },
+                { value: "6+", label: "Backend Technologies", color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
+                { value: "8+", label: "Databases", color: "text-violet-500", bg: "bg-violet-500/10", border: "border-violet-500/20" },
+                { value: "10+", label: "Tools & Platforms", color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  className={`text-center p-4 rounded-2xl border ${stat.border} ${stat.bg}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                >
+                  <div className={`text-3xl font-black ${stat.color} mb-1`}>{stat.value}</div>
+                  <div className="text-xs text-muted-foreground font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -293,17 +295,19 @@ export default function SkillsPage() {
       </section>
 
       {/* Certifications Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-24 bg-muted/20">
         <div className="container">
           <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Certifications
+              <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+                Certifications
+              </span>
             </h2>
             <p className="text-lg text-muted-foreground">
               Professional certifications that validate my expertise
@@ -340,66 +344,76 @@ export default function SkillsPage() {
       </section>
 
       {/* Skills Summary */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="container">
           <motion.div
             className="max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="text-center mb-12">
+            <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Skill Summary
+                Skill{" "}
+                <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
+                  Summary
+                </span>
               </h2>
               <p className="text-lg text-muted-foreground">
                 My approach to continuous learning and skill development
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="text-center hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <BookOpen className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <CardTitle>Continuous Learning</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>
-                    I stay updated with the latest technologies and best
-                    practices through online courses, documentation, and
-                    hands-on experimentation.
-                  </CardDescription>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <Zap className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <CardTitle>Practical Application</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>
-                    I believe in learning by doing. Every skill I acquire is
-                    immediately applied in real projects to solidify my
-                    understanding.
-                  </CardDescription>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <Award className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <CardTitle>Knowledge Sharing</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>
-                    I actively contribute to the developer community through
-                    blog posts, open-source contributions, and mentoring fellow
-                    developers.
-                  </CardDescription>
-                </CardContent>
-              </Card>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: BookOpen,
+                  title: "Continuous Learning",
+                  desc: "I stay updated with the latest technologies and best practices through online courses, documentation, and hands-on experimentation.",
+                  gradient: "from-blue-500 to-cyan-500",
+                  bg: "bg-blue-500/10",
+                  iconColor: "text-blue-500",
+                },
+                {
+                  icon: Zap,
+                  title: "Practical Application",
+                  desc: "I believe in learning by doing. Every skill I acquire is immediately applied in real projects to solidify my understanding.",
+                  gradient: "from-amber-500 to-orange-500",
+                  bg: "bg-amber-500/10",
+                  iconColor: "text-amber-500",
+                },
+                {
+                  icon: Award,
+                  title: "Knowledge Sharing",
+                  desc: "I actively contribute to the developer community through blog posts, open-source contributions, and mentoring fellow developers.",
+                  gradient: "from-violet-500 to-pink-500",
+                  bg: "bg-violet-500/10",
+                  iconColor: "text-violet-500",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                >
+                  <Card className="text-center hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative">
+                    <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.gradient}`} />
+                    <CardHeader className="pt-7">
+                      <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mx-auto mb-3`}>
+                        <item.icon className={`h-7 w-7 ${item.iconColor}`} />
+                      </div>
+                      <CardTitle>{item.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="leading-relaxed">{item.desc}</CardDescription>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>

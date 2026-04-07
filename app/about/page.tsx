@@ -25,20 +25,16 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.5,
-    },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -53,6 +49,9 @@ const experiences = [
       "Redesigned the official website to enhance user experience and accessibility.",
       "Implemented a content management system for easy updates by non-technical members.",
     ],
+    color: "bg-violet-500",
+    accent: "text-violet-500",
+    border: "border-violet-500/30",
   },
 ];
 
@@ -62,64 +61,93 @@ const values = [
     title: "Clean Code",
     description:
       "I believe in writing code that is not only functional but also readable, maintainable, and elegant.",
+    gradient: "from-blue-500 to-cyan-500",
+    bg: "bg-blue-500/10",
+    iconColor: "text-blue-500",
   },
   {
     icon: Users,
     title: "Collaboration",
     description:
       "Great products are built by great teams. I thrive in collaborative environments and enjoy mentoring others.",
+    gradient: "from-emerald-500 to-teal-500",
+    bg: "bg-emerald-500/10",
+    iconColor: "text-emerald-500",
   },
   {
     icon: Zap,
     title: "Innovation",
     description:
       "I'm always exploring new technologies and approaches to solve problems more efficiently and effectively.",
+    gradient: "from-amber-500 to-orange-500",
+    bg: "bg-amber-500/10",
+    iconColor: "text-amber-500",
   },
   {
     icon: Heart,
     title: "User-Centric",
     description:
       "Every line of code I write is with the end user in mind, ensuring the best possible experience.",
+    gradient: "from-pink-500 to-rose-500",
+    bg: "bg-pink-500/10",
+    iconColor: "text-pink-500",
   },
 ];
 
 const stats = [
-  { icon: Award, label: "Years Experience", value: "3+" },
-  { icon: Users, label: "Projects Completed", value: "10+" },
+  {
+    icon: Award,
+    label: "Years Experience",
+    value: "3+",
+    color: "text-violet-500",
+    bg: "bg-violet-500/10",
+    border: "border-violet-500/20",
+  },
+  {
+    icon: Users,
+    label: "Projects Completed",
+    value: "10+",
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/20",
+  },
 ];
 
 export default function AboutPage() {
   const handleResumeDownload = () => {
-    // Google Drive direct download URL format
     const fileId = "1WyMQAe17ZWrXrgeH9Jf78C8nKAUO1pd6";
     const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-
-    // Create a temporary link element
     const link = document.createElement("a");
     link.href = directDownloadUrl;
     link.target = "_blank";
-    link.download = "resume.pdf"; // Set desired filename
-
-    // Trigger the download
+    link.download = "resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
+
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
-        <div className="container">
+      <section className="py-24 relative overflow-hidden dot-grid">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <motion.div
+          className="absolute w-80 h-80 rounded-full blur-3xl opacity-20"
+          style={{ background: "radial-gradient(circle, #7c3aed, #4f46e5)", top: "10%", right: "10%" }}
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 12, repeat: Infinity }}
+        />
+        <div className="container relative z-10">
           <motion.div
             className="max-w-4xl mx-auto"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
           >
-            <motion.div variants={itemVariants} className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <motion.div variants={itemVariants} className="text-center mb-14">
+              <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
                 About{" "}
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
                   Me
                 </span>
               </h1>
@@ -131,56 +159,67 @@ export default function AboutPage() {
 
             <motion.div
               variants={itemVariants}
-              className="flex  justify-center items-center gap-16 mb-12"
+              className="flex justify-center items-center gap-6 mb-12"
             >
-              {stats.map((stat, index) => (
-                <div key={stat.label} className="text-center">
-                  <stat.icon className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">
+              {stats.map((stat) => (
+                <motion.div
+                  key={stat.label}
+                  className={`text-center p-8 rounded-2xl border ${stat.border} ${stat.bg} min-w-[160px]`}
+                  whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                >
+                  <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3 border ${stat.border}`}>
+                    <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                  </div>
+                  <div className={`text-3xl font-black ${stat.color} mb-1`}>{stat.value}</div>
+                  <div className="text-sm text-muted-foreground font-medium">
                     {stat.label}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 
             <motion.div variants={itemVariants} className="text-center">
-              <Button
-                size="lg"
-                className="group"
-                onClick={handleResumeDownload}
-              >
-                <Download className="mr-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
-                Download Resume
-              </Button>
+              <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+                <Button
+                  size="lg"
+                  className="group bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/25"
+                  onClick={handleResumeDownload}
+                >
+                  <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+                  Download Resume
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Story Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
               className="mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-                My Story
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+                My{" "}
+                <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                  Story
+                </span>
               </h2>
-              <div className="prose prose-lg dark:prose-invert mx-auto">
-                <p className="text-muted-foreground">
+              <div className="space-y-5">
+                <p className="text-muted-foreground leading-relaxed text-lg">
                   My journey into the world of programming began during my
                   computer science studies, where I discovered my passion for
                   creating digital solutions that make a real difference. What
                   started as curiosity about how websites work has evolved into
                   a career dedicated to crafting exceptional user experiences.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground leading-relaxed text-lg">
                   I am a passionate developer eager to start my professional
                   journey in the tech industry. While I haven't had formal work
                   experience yet, I've been dedicating my time to building
@@ -188,7 +227,7 @@ export default function AboutPage() {
                   React, Next.js, and Node.js, and constantly improving my
                   programming skills through hands-on practice.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground leading-relaxed text-lg">
                   When I'm not coding, you can find me contributing to
                   open-source projects or exploring the latest web technologies.
                   I believe in continuous learning and sharing knowledge with
@@ -201,17 +240,20 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-24 bg-muted/20">
         <div className="container">
           <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              What Drives Me
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              What{" "}
+              <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                Drives Me
+              </span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               The principles and values that guide my work and professional
@@ -219,22 +261,26 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {values.map((value, index) => (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <Card className="h-full hover:shadow-lg transition-all duration-300">
-                  <CardHeader>
-                    <value.icon className="h-10 w-10 text-primary mb-2" />
+                <Card className="h-full border-border/60 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+                  <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${value.gradient}`} />
+                  <CardHeader className="pt-7">
+                    <div className={`w-12 h-12 rounded-xl ${value.bg} flex items-center justify-center mb-3`}>
+                      <value.icon className={`h-6 w-6 ${value.iconColor}`} />
+                    </div>
                     <CardTitle>{value.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-base leading-relaxed">
                       {value.description}
                     </CardDescription>
                   </CardContent>
@@ -246,16 +292,20 @@ export default function AboutPage() {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="container">
           <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Experience</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+                Experience
+              </span>
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               My professional journey and key achievements over the years
             </p>
@@ -266,44 +316,59 @@ export default function AboutPage() {
               <motion.div
                 key={exp.title}
                 className="relative mb-12 last:mb-0"
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
               >
                 <div className="flex">
-                  <div className="flex flex-col items-center mr-4">
-                    <div className="w-4 h-4 bg-primary rounded-full"></div>
+                  <div className="flex flex-col items-center mr-6">
+                    <motion.div
+                      className={`w-5 h-5 ${exp.color} rounded-full shadow-lg ring-4 ring-background`}
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      viewport={{ once: true }}
+                    />
                     {index !== experiences.length - 1 && (
-                      <div className="w-0.5 h-full bg-border mt-2"></div>
+                      <div className="w-0.5 flex-1 bg-gradient-to-b from-violet-500/40 to-transparent mt-2" />
                     )}
                   </div>
-                  <Card className="flex-1 hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle>{exp.title}</CardTitle>
-                          <CardDescription className="text-primary font-medium">
-                            {exp.company}
-                          </CardDescription>
+                  <motion.div
+                    className="flex-1"
+                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  >
+                    <Card className={`hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative`}>
+                      <div className={`absolute inset-x-0 top-0 h-1 ${exp.color.replace('bg-', 'bg-gradient-to-r from-')} to-indigo-500`} />
+                      <CardHeader className="pt-6">
+                        <div className="flex justify-between items-start flex-wrap gap-3">
+                          <div>
+                            <CardTitle className="text-lg">{exp.title}</CardTitle>
+                            <CardDescription className={`${exp.accent} font-semibold text-sm mt-1`}>
+                              {exp.company}
+                            </CardDescription>
+                          </div>
+                          <Badge variant="secondary" className="text-xs shrink-0">{exp.period}</Badge>
                         </div>
-                        <Badge variant="secondary">{exp.period}</Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground mb-4">
-                        {exp.description}
-                      </p>
-                      <div className="space-y-2">
-                        <h4 className="font-medium">Key Achievements:</h4>
-                        <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                          {exp.achievements.map((achievement, i) => (
-                            <li key={i}>{achievement}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground mb-4 leading-relaxed">
+                          {exp.description}
+                        </p>
+                        <div className="space-y-2">
+                          <h4 className="font-semibold text-sm">Key Achievements:</h4>
+                          <ul className="space-y-2">
+                            {exp.achievements.map((achievement, i) => (
+                              <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <span className={`w-1.5 h-1.5 rounded-full ${exp.color} mt-1.5 shrink-0`} />
+                                {achievement}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}

@@ -67,8 +67,10 @@ export default function Footer() {
             {/* Brand Section */}
             <div className="col-span-1 sm:col-span-2 lg:col-span-2">
               <Link href="/" className="flex items-center space-x-2 mb-4">
-                <Code2 className="h-6 w-6 text-primary" />
-                <span className="font-bold text-xl">Ahsanul</span>
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-sm">
+                  <Code2 className="h-4 w-4 text-white" />
+                </div>
+                <span className="font-bold text-xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">Ahsanul</span>
               </Link>
               <p className="text-muted-foreground mb-6 max-w-md text-sm lg:text-base">
                 Full Stack Developer passionate about creating exceptional
