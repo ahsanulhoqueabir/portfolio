@@ -1,20 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {
-  Send,
-  Clock,
-  MessageSquare,
-  Calendar,
-  Loader2,
-  CheckCircle,
-  AlertCircle,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Clock, MessageSquare, Calendar } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -22,24 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
-import { ContactsService } from "@/services/contacts.services";
-
-// Form validation schema
-const contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
+import ContactForm from "@/components/contact-form";
 import {
   contactMethods,
   socialLinks,
@@ -68,51 +40,6 @@ const itemVariants = {
 };
 
 export default function ContactPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
-
-    try {
-      const result = await ContactsService.sendContactForm(data);
-
-      if (result.success) {
-        setSubmitStatus({
-          type: "success",
-          message:
-            "Thank you! Your message has been sent successfully. I'll get back to you soon.",
-        });
-        reset(); // Reset form after successful submission
-      } else {
-        setSubmitStatus({
-          type: "error",
-          message:
-            result.message || "Failed to send message. Please try again.",
-        });
-      }
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message: "Network error. Please check your connection and try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
   return (
     <div className="min-h-screen  ">
       {/* Hero Section */}
@@ -202,123 +129,7 @@ export default function ContactPage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Send className="h-5 w-5 text-primary" />
-                    Send Message
-                  </CardTitle>
-                  <CardDescription>
-                    Fill out the form below and I'll get back to you as soon as
-                    possible.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Status Messages */}
-                  {submitStatus.type && (
-                    <Alert
-                      className={
-                        submitStatus.type === "success"
-                          ? "border-green-200 bg-green-50 text-green-800"
-                          : "border-red-200 bg-red-50 text-red-800"
-                      }
-                    >
-                      {submitStatus.type === "success" ? (
-                        <CheckCircle className="h-4 w-4" />
-                      ) : (
-                        <AlertCircle className="h-4 w-4" />
-                      )}
-                      <AlertDescription>
-                        {submitStatus.message}
-                      </AlertDescription>
-                    </Alert>
-                  )}
-
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name *</Label>
-                        <Input
-                          id="name"
-                          placeholder="Your name"
-                          {...register("name")}
-                          className={errors.name ? "border-red-500" : ""}
-                        />
-                        {errors.name && (
-                          <p className="text-sm text-red-500">
-                            {errors.name.message}
-                          </p>
-                        )}
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your@email.com"
-                          {...register("email")}
-                          className={errors.email ? "border-red-500" : ""}
-                        />
-                        {errors.email && (
-                          <p className="text-sm text-red-500">
-                            {errors.email.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="subject">Subject *</Label>
-                      <Input
-                        id="subject"
-                        placeholder="Project inquiry"
-                        {...register("subject")}
-                        className={errors.subject ? "border-red-500" : ""}
-                      />
-                      {errors.subject && (
-                        <p className="text-sm text-red-500">
-                          {errors.subject.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Tell me about your project..."
-                        className={`min-h-[120px] ${
-                          errors.message ? "border-red-500" : ""
-                        }`}
-                        {...register("message")}
-                      />
-                      {errors.message && (
-                        <p className="text-sm text-red-500">
-                          {errors.message.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <Button
-                      type="submit"
-                      className="w-full group bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/20"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+              <ContactForm />
             </motion.div>
 
             {/* Additional Info */}
