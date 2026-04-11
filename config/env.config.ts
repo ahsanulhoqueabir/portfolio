@@ -8,3 +8,5 @@ export const turnstileConfig = {
 };
 
 export const GTM_ID: string = process.env.NEXT_PUBLIC_GTM_ID!;
+
+export const FORM_ID: string = process.env.FORM_ID!;
