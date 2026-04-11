@@ -1,3 +1,4 @@
+import { FORM_ID } from "@/config/env.config";
 import type {
   ContactFormData,
   ContactFormMapping,
@@ -10,8 +11,7 @@ export class ContactService {
     subject: "entry.275668378",
     message: "entry.311945800",
   };
-  private static formid =
-    "1FAIpQLSfOto7PfxwD1-FmhsrYXA7SRNnUvCv1E6A7pV8hxjI0lVpPpQ";
+  private static formid = FORM_ID;
 
   static async submitContactForm(data: ContactFormData) {
     const formData = new FormData();
