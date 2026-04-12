@@ -4,6 +4,12 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.ahsanull.com",
+      },
+    ],
     unoptimized: true,
   },
 };
