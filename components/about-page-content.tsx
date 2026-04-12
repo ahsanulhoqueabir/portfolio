@@ -2,10 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
-import {
-  aboutStats as fallbackAboutStats,
-  values as fallbackValues,
-} from "@/constants/about.constant";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,17 +67,15 @@ const itemVariants = {
 
 const normalizeIconKey = (value: string) => value.trim().toLowerCase();
 
-const valueIconMap = new Map(
-  fallbackValues.map(
-    (item) => [normalizeIconKey(item.title), item.icon] as const,
-  ),
-);
-
-const statIconMap = new Map(
-  fallbackAboutStats.map(
-    (item) => [normalizeIconKey(item.label), item.icon] as const,
-  ),
-);
+// Icon emoji map for values and stats
+const iconEmojiMap: Record<string, string> = {
+  "clean code": "✨",
+  collaboration: "🤝",
+  innovation: "⚡",
+  projects: "📦",
+  happy: "😊",
+  years: "📅",
+};
 
 export default function AboutPageContent({
   experiences,
@@ -98,6 +92,10 @@ export default function AboutPageContent({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const getEmoji = (key: string) => {
+    return iconEmojiMap[normalizeIconKey(key)] || "💫";
   };
 
   return (
@@ -139,9 +137,7 @@ export default function AboutPageContent({
               className="flex justify-center items-center gap-6 mb-12"
             >
               {aboutStats.map((stat) => {
-                const StatIcon =
-                  statIconMap.get(normalizeIconKey(stat.iconKey)) ??
-                  fallbackAboutStats[0].icon;
+                const emoji = getEmoji(stat.iconKey);
 
                 return (
                   <motion.div
@@ -152,7 +148,7 @@ export default function AboutPageContent({
                     <div
                       className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3 border ${stat.border}`}
                     >
-                      <StatIcon className={`h-6 w-6 ${stat.color}`} />
+                      <span className="text-2xl">{emoji}</span>
                     </div>
                     <div className={`text-3xl font-black ${stat.color} mb-1`}>
                       {stat.value}
@@ -251,9 +247,7 @@ export default function AboutPageContent({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {values.map((value, index) => {
-              const ValueIcon =
-                valueIconMap.get(normalizeIconKey(value.iconKey)) ??
-                fallbackValues[0].icon;
+              const emoji = getEmoji(value.iconKey);
 
               return (
                 <motion.div
@@ -272,7 +266,7 @@ export default function AboutPageContent({
                       <div
                         className={`w-12 h-12 rounded-xl ${value.bg} flex items-center justify-center mb-3`}
                       >
-                        <ValueIcon className={`h-6 w-6 ${value.iconColor}`} />
+                        <span className="text-2xl">{emoji}</span>
                       </div>
                       <CardTitle>{value.title}</CardTitle>
                     </CardHeader>
