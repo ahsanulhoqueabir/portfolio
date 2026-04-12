@@ -76,7 +76,7 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen flex-col">
             <Navbar />
-            <main className="mx-auto flex w-full max-w-screen-2xl flex-1 flex-col">
+            <main className="mx-auto flex w-full max-w-screen-2xl flex-1 flex-col pb-24 md:pb-0">
               {children}
             </main>
             <Footer />
