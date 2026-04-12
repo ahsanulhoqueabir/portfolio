@@ -69,13 +69,17 @@ const itemVariants = {
   },
 };
 
+const normalizeIconKey = (value: string) => value.trim().toLowerCase();
+
 const valueIconMap = new Map(
-  fallbackValues.map((item) => [item.title.toLowerCase(), item.icon] as const),
+  fallbackValues.map(
+    (item) => [normalizeIconKey(item.title), item.icon] as const,
+  ),
 );
 
 const statIconMap = new Map(
   fallbackAboutStats.map(
-    (item) => [item.label.toLowerCase(), item.icon] as const,
+    (item) => [normalizeIconKey(item.label), item.icon] as const,
   ),
 );
 
@@ -136,7 +140,8 @@ export default function AboutPageContent({
             >
               {aboutStats.map((stat) => {
                 const StatIcon =
-                  statIconMap.get(stat.iconKey) ?? fallbackAboutStats[0].icon;
+                  statIconMap.get(normalizeIconKey(stat.iconKey)) ??
+                  fallbackAboutStats[0].icon;
 
                 return (
                   <motion.div
@@ -247,7 +252,8 @@ export default function AboutPageContent({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {values.map((value, index) => {
               const ValueIcon =
-                valueIconMap.get(value.iconKey) ?? fallbackValues[0].icon;
+                valueIconMap.get(normalizeIconKey(value.iconKey)) ??
+                fallbackValues[0].icon;
 
               return (
                 <motion.div
