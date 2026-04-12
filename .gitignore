@@ -9,6 +9,7 @@
 
 # production
 /build
+/script/
 
 # debug
 npm-debug.log*
