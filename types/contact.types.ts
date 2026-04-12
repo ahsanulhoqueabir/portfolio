@@ -10,3 +10,32 @@ export const ContactFormSchema = z.object({
 export type ContactFormData = z.infer<typeof ContactFormSchema>;
 
 export type ContactFormMapping = Record<keyof ContactFormData, string>;
+
+// Contact Page Content Types
+export type ContactMethodItem = {
+  title: string;
+  description: string;
+  contact: string;
+  href: string;
+  colorClass?: string;
+  color?: string;
+};
+
+export type SocialLinkItem = {
+  name: string;
+  href: string;
+  username: string;
+  colorClass?: string;
+  color?: string;
+};
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+export type ContactPageContentProps = {
+  contactMethods: ContactMethodItem[];
+  socialLinks: SocialLinkItem[];
+  faqs: FaqItem[];
+};

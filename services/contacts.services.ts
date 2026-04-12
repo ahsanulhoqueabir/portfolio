@@ -1,8 +1,17 @@
 import { FORM_ID } from "@/config/env.config";
+import dbConnect from "@/lib/mongodb";
+import {
+  ContactContentModel,
+  type ContactContentDocument,
+} from "@/models/contact.m";
 import type {
   ContactFormData,
   ContactFormMapping,
 } from "@/types/contact.types";
+
+function escapeRegex(input: string) {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 export class ContactService {
   private static mapping: ContactFormMapping = {
@@ -35,5 +44,25 @@ export class ContactService {
       console.error("Contact form submission error:", error);
       throw error;
     }
+  }
+}
+
+export class ContactContentService {
+  /**
+   * Finds an active contact content document by slug.
+   * Returns lean data for server-side rendering.
+   */
+  static async getActiveContactContent(
+    slug = "default",
+  ): Promise<ContactContentDocument | null> {
+    await dbConnect();
+
+    const normalized = slug.trim().toLowerCase();
+    const escapedSlug = escapeRegex(normalized);
+
+    return ContactContentModel.findOne({
+      slug: { $regex: new RegExp(`^${escapedSlug}$`, "i") },
+      isActive: true,
+    }).lean<ContactContentDocument>();
   }
 }
