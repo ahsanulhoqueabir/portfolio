@@ -10,6 +10,7 @@
 # production
 /build
 /script/
+index.md
 
 # debug
 npm-debug.log*
