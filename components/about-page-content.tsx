@@ -2,7 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
-import type { ComponentType } from "react";
+import {
+  aboutStats as fallbackAboutStats,
+  values as fallbackValues,
+} from "@/constants/about.constant";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,7 +29,7 @@ type AboutExperienceItem = {
 };
 
 type AboutValueItem = {
-  icon: ComponentType<{ className?: string }>;
+  iconKey: string;
   title: string;
   description: string;
   gradient: string;
@@ -35,7 +38,7 @@ type AboutValueItem = {
 };
 
 type AboutStatItem = {
-  icon: ComponentType<{ className?: string }>;
+  iconKey: string;
   label: string;
   value: string;
   color: string;
@@ -65,6 +68,16 @@ const itemVariants = {
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
+
+const valueIconMap = new Map(
+  fallbackValues.map((item) => [item.title.toLowerCase(), item.icon] as const),
+);
+
+const statIconMap = new Map(
+  fallbackAboutStats.map(
+    (item) => [item.label.toLowerCase(), item.icon] as const,
+  ),
+);
 
 export default function AboutPageContent({
   experiences,
@@ -121,25 +134,30 @@ export default function AboutPageContent({
               variants={itemVariants}
               className="flex justify-center items-center gap-6 mb-12"
             >
-              {aboutStats.map((stat) => (
-                <motion.div
-                  key={stat.label}
-                  className={`text-center p-8 rounded-2xl border ${stat.border} ${stat.bg} min-w-[160px]`}
-                  whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                >
-                  <div
-                    className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3 border ${stat.border}`}
+              {aboutStats.map((stat) => {
+                const StatIcon =
+                  statIconMap.get(stat.iconKey) ?? fallbackAboutStats[0].icon;
+
+                return (
+                  <motion.div
+                    key={stat.label}
+                    className={`text-center p-8 rounded-2xl border ${stat.border} ${stat.bg} min-w-[160px]`}
+                    whileHover={{ y: -6, transition: { duration: 0.2 } }}
                   >
-                    <stat.icon className={`h-6 w-6 ${stat.color}`} />
-                  </div>
-                  <div className={`text-3xl font-black ${stat.color} mb-1`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
+                    <div
+                      className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3 border ${stat.border}`}
+                    >
+                      <StatIcon className={`h-6 w-6 ${stat.color}`} />
+                    </div>
+                    <div className={`text-3xl font-black ${stat.color} mb-1`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground font-medium">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
             <motion.div variants={itemVariants} className="text-center">
@@ -227,35 +245,40 @@ export default function AboutPageContent({
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              >
-                <Card className="h-full border-border/60 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden relative">
-                  <div
-                    className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${value.gradient}`}
-                  />
-                  <CardHeader className="pt-7">
+            {values.map((value, index) => {
+              const ValueIcon =
+                valueIconMap.get(value.iconKey) ?? fallbackValues[0].icon;
+
+              return (
+                <motion.div
+                  key={value.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                >
+                  <Card className="h-full border-border/60 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden relative">
                     <div
-                      className={`w-12 h-12 rounded-xl ${value.bg} flex items-center justify-center mb-3`}
-                    >
-                      <value.icon className={`h-6 w-6 ${value.iconColor}`} />
-                    </div>
-                    <CardTitle>{value.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base leading-relaxed">
-                      {value.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                      className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${value.gradient}`}
+                    />
+                    <CardHeader className="pt-7">
+                      <div
+                        className={`w-12 h-12 rounded-xl ${value.bg} flex items-center justify-center mb-3`}
+                      >
+                        <ValueIcon className={`h-6 w-6 ${value.iconColor}`} />
+                      </div>
+                      <CardTitle>{value.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-base leading-relaxed">
+                        {value.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
