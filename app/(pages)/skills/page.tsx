@@ -89,7 +89,7 @@ export default function SkillsPage() {
         viewport={{ once: true }}
       >
         <div
-          className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white mb-4`}
+          className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-linear-to-r ${category.color} text-white mb-4`}
         >
           <category.icon className="h-5 w-5" />
           <h2 className="text-lg font-semibold">{category.title}</h2>
@@ -114,7 +114,7 @@ export default function SkillsPage() {
     <div className="min-h-screen  ">
       {/* Hero Section */}
       <section className="py-24 relative overflow-hidden dot-grid">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background pointer-events-none" />
         <motion.div
           className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
           style={{
@@ -134,7 +134,7 @@ export default function SkillsPage() {
           >
             <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
               Skills &{" "}
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                 Expertise
               </span>
             </h1>
@@ -200,7 +200,7 @@ export default function SkillsPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
                 Certifications
               </span>
             </h2>
@@ -251,7 +251,7 @@ export default function SkillsPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Skill{" "}
-                <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
                   Summary
                 </span>
               </h2>
@@ -272,7 +272,7 @@ export default function SkillsPage() {
                 >
                   <Card className="text-center hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative">
                     <div
-                      className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.gradient}`}
+                      className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${item.gradient}`}
                     />
                     <CardHeader className="pt-7">
                       <div

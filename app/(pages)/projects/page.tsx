@@ -56,7 +56,7 @@ export default function ProjectsPage() {
     >
       <Card className="h-full hover:shadow-2xl transition-all duration-300 group border-border/60 hover:border-border overflow-hidden">
         {/* Thumbnail */}
-        <div className={`aspect-video bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
+        <div className={`aspect-video bg-linear-to-br ${project.gradient} relative overflow-hidden`}>
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
               className={`w-20 h-20 rounded-2xl ${project.orb} blur-xl`}
@@ -69,7 +69,7 @@ export default function ProjectsPage() {
           </div>
           {project.featured && (
             <div className="absolute top-3 right-3 z-10">
-              <Badge className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white border-0 text-xs shadow-lg">
+              <Badge className="bg-linear-to-r from-violet-600 to-indigo-600 text-white border-0 text-xs shadow-lg">
                 Featured
               </Badge>
             </div>
@@ -86,7 +86,7 @@ export default function ProjectsPage() {
             </Badge>
           </div>
           {/* Top accent bar */}
-          <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.topBar}`} />
+          <div className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${project.topBar}`} />
         </div>
 
         <CardHeader>
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
             {project.demo && (
               <Button
                 size="sm"
-                className="flex-1 group/btn bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0 text-white"
+                className="flex-1 group/btn bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0 text-white"
                 onClick={() => window.open(project.demo, "_blank")}
               >
                 <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 transition-transform" />
@@ -163,7 +163,7 @@ export default function ProjectsPage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="py-24 relative overflow-hidden dot-grid">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background pointer-events-none" />
         <motion.div
           className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
           style={{ background: "radial-gradient(circle, #ec4899, #f43f5e)", top: "10%", right: "5%" }}
@@ -179,7 +179,7 @@ export default function ProjectsPage() {
           >
             <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
               My{" "}
-              <span className="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent">
                 Projects
               </span>
             </h1>
@@ -276,7 +276,7 @@ export default function ProjectsPage() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Project{" "}
-              <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
                 Statistics
               </span>
             </h2>

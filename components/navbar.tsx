@@ -57,13 +57,13 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2 group">
             <div className="flex items-center space-x-2">
               <motion.div
-                className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-sm"
+                className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-sm"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
                 <Code2 className="h-4 w-4 text-white" />
               </motion.div>
-              <span className="font-bold text-xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="font-bold text-xl bg-linear-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
                 Ahsanul
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="navbar-underline"
-                      className="absolute bottom-1 left-4 right-4 h-0.5 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500"
+                      className="absolute bottom-1 left-4 right-4 h-0.5 rounded-full bg-linear-to-r from-violet-500 to-indigo-500"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                     />
                   )}
@@ -128,7 +128,7 @@ export default function Navbar() {
                 {isActive && (
                   <motion.span
                     layoutId="mobile-nav-active"
-                    className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-6 h-1 rounded-b-full bg-gradient-to-r from-violet-500 to-indigo-500"
+                    className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-6 h-1 rounded-b-full bg-linear-to-r from-violet-500 to-indigo-500"
                     transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
                   />
                 )}

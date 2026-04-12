@@ -44,7 +44,7 @@ export default function ContactPage() {
     <div className="min-h-screen  ">
       {/* Hero Section */}
       <section className="py-24 relative overflow-hidden dot-grid">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background pointer-events-none" />
         <motion.div
           className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
           style={{
@@ -64,7 +64,7 @@ export default function ContactPage() {
           >
             <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
               Let's{" "}
-              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
                 Connect
               </span>
             </h1>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                   <Card className="text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-2 cursor-pointer group">
                     <CardHeader>
                       <div
-                        className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${method.color} text-white mx-auto mb-4 group-hover:scale-110 transition-transform`}
+                        className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-linear-to-r ${method.color} text-white mx-auto mb-4 group-hover:scale-110 transition-transform`}
                       >
                         <method.icon className="h-8 w-8" />
                       </div>
@@ -245,7 +245,7 @@ export default function ContactPage() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Frequently Asked{" "}
-              <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
                 Questions
               </span>
             </h2>

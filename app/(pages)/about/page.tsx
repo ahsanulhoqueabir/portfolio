@@ -48,7 +48,7 @@ export default function AboutPage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="py-24 relative overflow-hidden dot-grid">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background pointer-events-none" />
         <motion.div
           className="absolute w-80 h-80 rounded-full blur-3xl opacity-20"
           style={{
@@ -69,7 +69,7 @@ export default function AboutPage() {
             <motion.div variants={itemVariants} className="text-center mb-14">
               <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
                 About{" "}
-                <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
                   Me
                 </span>
               </h1>
@@ -111,7 +111,7 @@ export default function AboutPage() {
               >
                 <Button
                   size="lg"
-                  className="group bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/25"
+                  className="group bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/25"
                   onClick={handleResumeDownload}
                 >
                   <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
@@ -136,7 +136,7 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
                 My{" "}
-                <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
                   Story
                 </span>
               </h2>
@@ -180,7 +180,7 @@ export default function AboutPage() {
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               What{" "}
-              <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
                 Drives Me
               </span>
             </h2>
@@ -202,7 +202,7 @@ export default function AboutPage() {
               >
                 <Card className="h-full border-border/60 hover:border-border hover:shadow-xl transition-all duration-300 overflow-hidden relative">
                   <div
-                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${value.gradient}`}
+                    className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${value.gradient}`}
                   />
                   <CardHeader className="pt-7">
                     <div
@@ -235,7 +235,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
                 Experience
               </span>
             </h2>
@@ -268,7 +268,7 @@ export default function AboutPage() {
                       viewport={{ once: true }}
                     />
                     {index !== experiences.length - 1 && (
-                      <div className="w-0.5 flex-1 bg-gradient-to-b from-violet-500/40 to-transparent mt-2" />
+                      <div className="w-0.5 flex-1 bg-linear-to-b from-violet-500/40 to-transparent mt-2" />
                     )}
                   </div>
                   <motion.div
@@ -279,7 +279,7 @@ export default function AboutPage() {
                       className={`hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative`}
                     >
                       <div
-                        className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${exp.topBar}`}
+                        className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${exp.topBar}`}
                       />
                       <CardHeader className="pt-6">
                         <div className="flex justify-between items-start flex-wrap gap-3">

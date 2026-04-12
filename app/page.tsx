@@ -144,7 +144,7 @@ export default function Home() {
         className="relative min-h-screen flex items-center justify-center overflow-hidden dot-grid"
       >
         {/* Background gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background pointer-events-none z-0" />
 
         {/* Vivid floating orbs */}
         <motion.div
@@ -201,7 +201,7 @@ export default function Home() {
           >
             <span className="block text-foreground">Full Stack</span>
             <motion.span
-              className="block bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent"
+              className="block bg-linear-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent"
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
               style={{ backgroundSize: "300% 300%" }}
@@ -225,7 +225,7 @@ export default function Home() {
             <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
               <Button
                 size="lg"
-                className="group bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/25"
+                className="group bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-500/25"
                 asChild
               >
                 <Link href="/contact" className="flex items-center">
@@ -298,7 +298,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
               About{" "}
-              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
                 Me
               </span>
             </h2>
@@ -344,7 +344,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               What{" "}
-              <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
                 I Do
               </span>
             </h2>
@@ -365,7 +365,7 @@ export default function Home() {
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
               >
                 <Card className="h-full border-border/60 hover:border-border hover:shadow-xl transition-all duration-300 group overflow-hidden relative">
-                  <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${service.gradient}`} />
+                  <div className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${service.gradient}`} />
                   <CardHeader className="text-center pt-8">
                     <div className={`w-14 h-14 rounded-2xl ${service.bg} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
                       <service.icon className={`h-7 w-7 ${service.iconColor}`} />
@@ -396,7 +396,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               Skills &{" "}
-              <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
                 Expertise
               </span>
             </h2>
@@ -422,7 +422,7 @@ export default function Home() {
                 </div>
                 <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden">
                   <motion.div
-                    className={`bg-gradient-to-r ${skill.color} h-2.5 rounded-full`}
+                    className={`bg-linear-to-r ${skill.color} h-2.5 rounded-full`}
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
                     transition={{ duration: 1.2, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
@@ -447,7 +447,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               Featured{" "}
-              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
                 Projects
               </span>
             </h2>
@@ -467,7 +467,7 @@ export default function Home() {
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
               >
                 <Card className="h-full overflow-hidden hover:shadow-2xl transition-all duration-300 group border-border/60 hover:border-border">
-                  <div className={`aspect-video bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
+                  <div className={`aspect-video bg-linear-to-br ${project.gradient} relative overflow-hidden`}>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <motion.div
                         className={`w-24 h-24 rounded-2xl ${project.orb} blur-xl`}
@@ -478,7 +478,7 @@ export default function Home() {
                         {project.initial}
                       </span>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-background/0 to-background/30 group-hover:from-background/5 group-hover:to-background/10 transition-all duration-300">
+                    <div className="absolute inset-0 bg-linear-to-br from-background/0 to-background/30 group-hover:from-background/5 group-hover:to-background/10 transition-all duration-300">
                       <Image
                         alt={project.title}
                         src={project.image}
@@ -515,7 +515,7 @@ export default function Home() {
                       {project.demo && (
                         <Button
                           size="sm"
-                          className="flex-1 group/btn bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0"
+                          className="flex-1 group/btn bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0"
                           onClick={() => window.open(project.demo, "_blank")}
                         >
                           <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 transition-transform" />
@@ -550,7 +550,7 @@ export default function Home() {
 
       {/* Call to Action Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-600/10 via-fuchsia-500/5 to-pink-600/10" />
+        <div className="absolute inset-0 bg-linear-to-br from-violet-600/10 via-fuchsia-500/5 to-pink-600/10" />
         <div className="absolute inset-0 dot-grid opacity-50" />
         <motion.div
           className="absolute w-96 h-96 rounded-full blur-3xl opacity-20"
@@ -568,7 +568,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-black mb-4">
               Let's Work{" "}
-              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
                 Together
               </span>
             </h2>
@@ -579,7 +579,7 @@ export default function Home() {
             <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }}>
               <Button
                 size="lg"
-                className="group bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 text-white border-0 shadow-xl shadow-violet-500/25 text-base px-8 py-6"
+                className="group bg-linear-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 text-white border-0 shadow-xl shadow-violet-500/25 text-base px-8 py-6"
                 asChild
               >
                 <Link href="/contact" className="flex items-center">
