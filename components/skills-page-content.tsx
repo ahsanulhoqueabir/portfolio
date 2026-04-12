@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ComponentType } from "react";
 import {
   Card,
   CardContent,
@@ -12,51 +11,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-type SkillItem = {
-  name: string;
-  level: number;
-  experience: string;
-  icon: string;
-};
-
-type SkillCategoryItem = {
-  title: string;
-  icon: ComponentType<{ className?: string }>;
-  color: string;
-  skills: SkillItem[];
-};
-
-type SkillStatItem = {
-  value: string;
-  label: string;
-  color: string;
-  bg: string;
-  border: string;
-};
-
-type SkillSummaryItem = {
-  icon: ComponentType<{ className?: string }>;
-  title: string;
-  desc: string;
-  gradient: string;
-  bg: string;
-  iconColor: string;
-};
-
-type CertificationItem = {
-  name: string;
-  issuer: string;
-  date: string;
-  icon: string;
-};
-
-type SkillsPageContentProps = {
-  skillCategories: Record<string, SkillCategoryItem>;
-  certifications: CertificationItem[];
-  skillStats: SkillStatItem[];
-  skillSummaryItems: SkillSummaryItem[];
-};
+import type {
+  SkillItem,
+  SkillCategoryItem,
+  SkillStatItem,
+  SkillSummaryItem,
+  CertificationItem,
+  SkillsPageContentProps,
+} from "@/types/skills.types";
 
 const containerVariants = {
   hidden: { opacity: 0 },

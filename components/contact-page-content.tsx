@@ -23,34 +23,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-type ContactMethodItem = {
-  title: string;
-  description: string;
-  contact: string;
-  href: string;
-  colorClass?: string;
-  color?: string;
-};
-
-type SocialLinkItem = {
-  name: string;
-  href: string;
-  username: string;
-  colorClass?: string;
-  color?: string;
-};
-
-type FaqItem = {
-  question: string;
-  answer: string;
-};
-
-type ContactPageContentProps = {
-  contactMethods: ContactMethodItem[];
-  socialLinks: SocialLinkItem[];
-  faqs: FaqItem[];
-};
+import type {
+  ContactMethodItem,
+  SocialLinkItem,
+  FaqItem,
+  ContactPageContentProps,
+} from "@/types/contact.types";
 
 const contactMethodIconMap: Record<
   string,

@@ -11,42 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-type AboutExperienceItem = {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-  achievements: string[];
-  color: string;
-  accent: string;
-  border: string;
-  topBar: string;
-};
-
-type AboutValueItem = {
-  iconKey: string;
-  title: string;
-  description: string;
-  gradient: string;
-  bg: string;
-  iconColor: string;
-};
-
-type AboutStatItem = {
-  iconKey: string;
-  label: string;
-  value: string;
-  color: string;
-  bg: string;
-  border: string;
-};
-
-type AboutPageContentProps = {
-  experiences: AboutExperienceItem[];
-  values: AboutValueItem[];
-  aboutStats: AboutStatItem[];
-};
+import type {
+  AboutExperienceItem,
+  AboutValueItem,
+  AboutStatItem,
+  AboutPageContentProps,
+} from "@/types/about.types";
 
 const containerVariants = {
   hidden: { opacity: 0 },

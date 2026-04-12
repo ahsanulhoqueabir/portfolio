@@ -19,29 +19,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-type ProjectItem = {
-  id: number;
-  title: string;
-  description: string;
-  tech: string[];
-  category: string;
-  github: string;
-  demo?: string;
-  stars: number;
-  forks: number;
-  status: "completed" | "on-going" | "planned" | string;
-  featured: boolean;
-  date: string;
-  gradient: string;
-  accentColor: string;
-  orb: string;
-  topBar: string;
-};
-
-type ProjectsPageContentProps = {
-  projects: ProjectItem[];
-};
+import type {
+  ProjectItem,
+  ProjectsPageContentProps,
+} from "@/types/projects.types";
 
 const containerVariants = {
   hidden: { opacity: 0 },
