@@ -3,20 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  Code2,
-  Home,
-  User,
-  Briefcase,
-  Code,
-  Mail,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Code2, Home, User, Briefcase, Code, Mail } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const routes = [
   { name: "Home", path: "/", icon: Home },
@@ -47,7 +37,7 @@ export default function Navbar() {
           "sticky top-0 z-50 w-full transition-all duration-300 hidden md:block",
           scrolled
             ? "bg-background/80 backdrop-blur-md shadow-sm border-b border-border/50"
-            : "bg-transparent"
+            : "bg-transparent",
         )}
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -80,14 +70,18 @@ export default function Navbar() {
                     "relative px-4 py-2 text-sm font-medium rounded-lg transition-colors",
                     isActive
                       ? "text-violet-600 dark:text-violet-400"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
                   )}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="navbar-active"
                       className="absolute inset-0 rounded-lg bg-violet-500/10 dark:bg-violet-500/15"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                      transition={{
+                        type: "spring",
+                        bounce: 0.2,
+                        duration: 0.5,
+                      }}
                     />
                   )}
                   <span className="relative z-10">{route.name}</span>
@@ -95,7 +89,11 @@ export default function Navbar() {
                     <motion.span
                       layoutId="navbar-underline"
                       className="absolute bottom-1 left-4 right-4 h-0.5 rounded-full bg-linear-to-r from-violet-500 to-indigo-500"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                      transition={{
+                        type: "spring",
+                        bounce: 0.2,
+                        duration: 0.5,
+                      }}
                     />
                   )}
                 </Link>
@@ -122,7 +120,7 @@ export default function Navbar() {
                   "relative flex flex-col items-center justify-center space-y-1 text-xs font-medium transition-colors min-w-[48px] py-1",
                   isActive
                     ? "text-violet-600 dark:text-violet-400"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               >
                 {isActive && (
