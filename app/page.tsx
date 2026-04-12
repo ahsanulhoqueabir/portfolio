@@ -355,8 +355,7 @@ export default function Home() {
               variants={itemVariants}
               className="relative mx-auto w-full max-w-xl"
             >
-              <div className="absolute -inset-3 rounded-[2rem] bg-linear-to-r from-violet-500/30 via-fuchsia-500/20 to-cyan-500/30 blur-xl" />
-              <div className="relative overflow-hidden rounded-[2rem] border border-violet-500/20 bg-card/70 backdrop-blur-sm shadow-2xl">
+              <div className="relative overflow-hidden rounded-[2rem]">
                 <Image
                   src={heroImageUrl}
                   alt="Ahsanul Hoque - Full Stack Developer"
