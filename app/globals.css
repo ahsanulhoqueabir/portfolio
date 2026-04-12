@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@config "../tailwind.config.mjs";
 
 @layer base {
   :root {
@@ -58,56 +57,6 @@
   }
 }
 
-/* Custom Animations */
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse-slow {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes gradient-shift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
-}
-
-.animate-gradient {
-  animation: gradient-shift 8s ease infinite;
-  background-size: 400% 400%;
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -141,83 +90,6 @@ html {
 .dot-grid {
   background-image: radial-gradient(circle, hsl(var(--primary) / 0.12) 1px, transparent 1px);
   background-size: 28px 28px;
-}
-
-/* Colorful glow effects */
-.glow-violet {
-  box-shadow: 0 0 40px hsl(262 83% 58% / 0.3);
-}
-
-.dark .glow-violet {
-  box-shadow: 0 0 60px hsl(263 90% 68% / 0.25);
-}
-
-/* Custom gradients */
-.gradient-primary {
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(262 83% 75%));
-}
-
-.gradient-secondary {
-  background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary) / 0.8));
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(300 80% 60%));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Glass effect */
-.glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.dark .glass {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Card hover effects */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-.dark .card-hover:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-}
-
-/* Shimmer effect */
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.15), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2.5s infinite;
-}
-
-/* Colored border gradient */
-.border-gradient {
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  background-image: linear-gradient(hsl(var(--card)), hsl(var(--card))),
-    linear-gradient(135deg, hsl(var(--primary)), hsl(300 80% 60%));
-  background-origin: border-box;
 }
 
 /* Loading animation */
@@ -286,25 +158,4 @@ html {
   100% {
     transform: translate(24px, 0);
   }
-}
-
-/* Button hover shimmer */
-.btn-primary {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.btn-primary:hover::before {
-  left: 100%;
 }
