@@ -143,7 +143,9 @@ const loadSiteContext = unstable_cache(
       heroImageUrl:
         aboutContent?.heroImageUrl ||
         "https://cdn.ahsanull.com/Untitled%20(1000%20x%20800%20px)%20(1).png",
-      cvDownloadUrl: aboutContent?.cvDownloadUrl || "/Ahsanul-Hoque-CV.pdf",
+      cvDownloadUrl:
+        aboutContent?.cvDownloadUrl ||
+        "https://cdn.ahsanull.com/resume-ahsanul.pdf",
       heroSubtitle:
         aboutContent?.homeHeroSubtitle ||
         "I craft exceptional digital experiences with clean code and modern design. Passionate about building scalable web applications.",
