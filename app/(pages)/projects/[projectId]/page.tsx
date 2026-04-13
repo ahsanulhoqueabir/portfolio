@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ProjectDetailsPageContent from "@/components/project-details-page-content";
+import ProjectDetailsPageContent from "@/components/project-details-page";
 import { ProjectsService } from "@/services/projects.services";
 import type { ProjectItem } from "@/types/projects.types";
 

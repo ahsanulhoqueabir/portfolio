@@ -1,4 +1,4 @@
-import ContactPageContent from "@/components/contact-page-content";
+import ContactPageContent from "@/components/contact-page";
 import { getSiteContext } from "@/lib/site-context";
 
 export default async function ContactPage() {

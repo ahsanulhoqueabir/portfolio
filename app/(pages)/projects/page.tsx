@@ -1,4 +1,4 @@
-import ProjectsPageContent from "@/components/projects-page-content";
+import ProjectsPageContent from "@/components/projects-page";
 import { getSiteContext } from "@/lib/site-context";
 
 export default async function ProjectsPage() {

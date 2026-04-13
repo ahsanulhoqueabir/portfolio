@@ -1,4 +1,4 @@
-import AboutPageContent from "@/components/about-page-content";
+import AboutPageContent from "@/components/about-page";
 import { getSiteContext } from "@/lib/site-context";
 
 export default async function AboutPage() {
