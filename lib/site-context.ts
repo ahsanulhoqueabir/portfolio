@@ -89,6 +89,7 @@ const loadSiteContext = unstable_cache(
             .reduce<Record<string, any>>((acc, category) => {
               acc[category.key] = {
                 title: category.title,
+                iconKey: category.key,
                 color: `${category.colorFrom} ${category.colorTo}`,
                 skills: category.skills.map((skill) => ({
                   name: skill.name,
@@ -110,6 +111,7 @@ const loadSiteContext = unstable_cache(
         })) ?? [],
       skillSummaryItems:
         skillsContent?.summaryItems?.map((item) => ({
+          iconKey: item.title.toLowerCase(),
           title: item.title,
           desc: item.description,
           gradient: `${item.gradientFrom} ${item.gradientTo}`,

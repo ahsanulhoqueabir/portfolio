@@ -1,5 +1,3 @@
-import type { ComponentType } from "react";
-
 export type SkillItem = {
   name: string;
   level: number;
@@ -9,7 +7,7 @@ export type SkillItem = {
 
 export type SkillCategoryItem = {
   title: string;
-  icon: ComponentType<{ className?: string }>;
+  iconKey: string;
   color: string;
   skills: SkillItem[];
 };
@@ -23,7 +21,7 @@ export type SkillStatItem = {
 };
 
 export type SkillSummaryItem = {
-  icon: ComponentType<{ className?: string }>;
+  iconKey: string;
   title: string;
   desc: string;
   gradient: string;

@@ -2,6 +2,17 @@
 
 import { motion } from "framer-motion";
 import {
+  Code2,
+  Database,
+  Wrench,
+  Smartphone,
+  Palette,
+  Layers,
+  Sparkles,
+  GraduationCap,
+  Rocket,
+} from "lucide-react";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -14,9 +25,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   SkillItem,
   SkillCategoryItem,
-  SkillStatItem,
-  SkillSummaryItem,
-  CertificationItem,
   SkillsPageContentProps,
 } from "@/types/skills.types";
 
@@ -85,36 +93,65 @@ export default function SkillsPageContent({
   }: {
     category: SkillCategoryItem;
     skills: SkillItem[];
-  }) => (
-    <div className="space-y-6">
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <div
-          className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-linear-to-r ${category.color} text-white mb-4`}
-        >
-          <category.icon className="h-5 w-5" />
-          <h2 className="text-lg font-semibold">{category.title}</h2>
-        </div>
-      </motion.div>
+  }) => {
+    const CategoryIcon = getCategoryIcon(category.iconKey);
 
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        {skills.map((skill, index) => (
-          <SkillCard key={skill.name} skill={skill} index={index} />
-        ))}
-      </motion.div>
-    </div>
-  );
+    return (
+      <div className="space-y-6">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <div
+            className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-linear-to-r ${category.color} text-white mb-4`}
+          >
+            <CategoryIcon className="h-5 w-5" />
+            <h2 className="text-lg font-semibold">{category.title}</h2>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {skills.map((skill, index) => (
+            <SkillCard key={skill.name} skill={skill} index={index} />
+          ))}
+        </motion.div>
+      </div>
+    );
+  };
+
+  const getCategoryIcon = (iconKey: string) => {
+    const normalized = iconKey.trim().toLowerCase();
+
+    if (normalized.includes("front")) return Code2;
+    if (normalized.includes("back")) return Database;
+    if (normalized.includes("data")) return Database;
+    if (normalized.includes("tool")) return Wrench;
+    if (normalized.includes("mobile")) return Smartphone;
+    if (normalized.includes("design")) return Palette;
+
+    return Layers;
+  };
+
+  const getSummaryIcon = (iconKey: string) => {
+    const normalized = iconKey.trim().toLowerCase();
+
+    if (normalized.includes("learn")) return GraduationCap;
+    if (normalized.includes("build") || normalized.includes("project"))
+      return Rocket;
+    if (normalized.includes("growth") || normalized.includes("improve"))
+      return Sparkles;
+
+    return Sparkles;
+  };
 
   return (
     <div className="min-h-screen  ">
@@ -263,35 +300,41 @@ export default function SkillsPageContent({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {skillSummaryItems.map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                >
-                  <Card className="text-center hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative">
-                    <div
-                      className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${item.gradient}`}
-                    />
-                    <CardHeader className="pt-7">
+              {skillSummaryItems.map((item, i) => {
+                const SummaryIcon = getSummaryIcon(item.iconKey);
+
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <Card className="text-center hover:shadow-xl transition-all duration-300 border-border/60 hover:border-border overflow-hidden relative">
                       <div
-                        className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mx-auto mb-3`}
-                      >
-                        <item.icon className={`h-7 w-7 ${item.iconColor}`} />
-                      </div>
-                      <CardTitle>{item.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="leading-relaxed">
-                        {item.desc}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                        className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${item.gradient}`}
+                      />
+                      <CardHeader className="pt-7">
+                        <div
+                          className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mx-auto mb-3`}
+                        >
+                          <SummaryIcon
+                            className={`h-7 w-7 ${item.iconColor}`}
+                          />
+                        </div>
+                        <CardTitle>{item.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <CardDescription className="leading-relaxed">
+                          {item.desc}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
