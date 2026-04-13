@@ -24,6 +24,35 @@ export default function HomeHeroSection({
   heroImageUrl,
   cvDownloadUrl,
 }: HomeHeroSectionProps) {
+  const handleResumeDownload = async () => {
+    const fileName = cvDownloadUrl.split("/").pop() || "resume.pdf";
+
+    try {
+      const response = await fetch(cvDownloadUrl, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Download failed with status ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+      return;
+    } catch {
+      const link = document.createElement("a");
+      link.href = cvDownloadUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+  };
+
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -180,16 +209,15 @@ export default function HomeHeroSection({
                   size="lg"
                   variant="outline"
                   className="group border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400"
-                  asChild
+                  type="button"
+                  onClick={() => {
+                    void handleResumeDownload();
+                  }}
                 >
-                  <a
-                    href={cvDownloadUrl}
-                    download
-                    className="flex items-center"
-                  >
+                  <span className="flex items-center">
                     Download CV
                     <Download className="ml-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
-                  </a>
+                  </span>
                 </Button>
               </motion.div>
             </motion.div>
