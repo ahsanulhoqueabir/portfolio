@@ -17,6 +17,16 @@ const certificationSchema = new Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    certificate: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     images: {
       type: [String],
       required: true,

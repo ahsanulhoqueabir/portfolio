@@ -127,6 +127,9 @@ const loadSiteContext = unstable_cache(
         issuer: item.issuer,
         date: item.issueDate,
         icon: "🏆",
+        description:
+          item.description ?? "Certification details will be added soon.",
+        certificate: item.certificate ?? item.credential ?? "",
       })),
     };
 

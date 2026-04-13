@@ -11,6 +11,7 @@ import {
   Sparkles,
   GraduationCap,
   Rocket,
+  ExternalLink,
 } from "lucide-react";
 import {
   Card,
@@ -20,6 +21,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
@@ -250,7 +252,7 @@ export default function SkillsPageContent({
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -262,14 +264,40 @@ export default function SkillsPageContent({
                 variants={itemVariants}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <CardHeader>
-                    <div className="text-4xl mb-2">{cert.icon}</div>
-                    <CardTitle className="text-lg">{cert.name}</CardTitle>
-                    <CardDescription>{cert.issuer}</CardDescription>
+                <Card className="h-full border-border/70 hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                  <div className="h-1 w-full bg-linear-to-r from-amber-500 via-orange-500 to-rose-500" />
+                  <CardHeader className="space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <Badge className="rounded-full" variant="secondary">
+                          {cert.issuer}
+                        </Badge>
+                      </div>
+                      <div className="text-3xl">{cert.icon}</div>
+                    </div>
+                    <CardTitle className="text-xl leading-tight">
+                      {cert.name}
+                    </CardTitle>
+                    <CardDescription className="text-sm leading-relaxed">
+                      {cert.description}
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex items-center justify-between gap-3 pt-0">
                     <Badge variant="outline">{cert.date}</Badge>
+                    {cert.certificate ? (
+                      <Button asChild size="sm" className="rounded-full px-4">
+                        <a
+                          href={cert.certificate}
+                          target="_blank"
+                          rel="noreferrer"
+                          download
+                          aria-label={`Open certificate for ${cert.name}`}
+                        >
+                          Certificate
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    ) : null}
                   </CardContent>
                 </Card>
               </motion.div>

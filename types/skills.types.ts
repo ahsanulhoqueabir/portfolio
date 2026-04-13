@@ -34,6 +34,8 @@ export type CertificationItem = {
   issuer: string;
   date: string;
   icon: string;
+  description: string;
+  certificate: string;
 };
 
 export type SkillsPageContentProps = {
