@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { CSSProperties, useRef } from "react";
+import { useRef } from "react";
 import {
   ArrowDown,
   GithubIcon,
@@ -25,41 +25,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
-
-type HomeSkill = {
-  name: string;
-  level: number;
-  color: string;
-};
-
-type HomeProject = {
-  title: string;
-  description: string;
-  tech: string[];
-  image: string;
-  github: string;
-  demo?: string;
-  gradient: string;
-  accent: string;
-  initial: string;
-  orb: string;
-};
-
-type HomeStat = {
-  value: string;
-  label: string;
-  color: string;
-};
-
-type HomePageContentProps = {
-  skills: HomeSkill[];
-  projects: HomeProject[];
-  aboutStats: HomeStat[];
-  heroSubtitle: string;
-  aboutParagraph: string;
-  heroImageUrl: string;
-  cvDownloadUrl: string;
-};
+import type { HomePageContentProps, HomeService } from "@/types/home.types";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -78,7 +44,7 @@ const itemVariants = {
   },
 };
 
-const heroPatternStyle: CSSProperties = {
+const heroPatternStyle = {
   backgroundImage: `
     linear-gradient(45deg, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%),
     linear-gradient(-45deg, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%)
@@ -90,7 +56,7 @@ const heroPatternStyle: CSSProperties = {
     "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
 };
 
-const services = [
+const services: HomeService[] = [
   {
     icon: Code2,
     title: "Frontend Development",
