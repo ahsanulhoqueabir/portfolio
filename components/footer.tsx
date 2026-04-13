@@ -22,11 +22,6 @@ const footerLinks = {
     { name: "Skills", href: "/skills" },
     { name: "Contact", href: "/contact" },
   ],
-  resources: [
-    { name: "Blog", href: "/blog" },
-    { name: "Newsletter", href: "/newsletter" },
-    { name: "Resources", href: "/resources" },
-  ],
 };
 
 const socialLinks = [
@@ -97,23 +92,6 @@ export default function Footer() {
               <h3 className="font-semibold text-base lg:text-lg">Navigation</h3>
               <ul className="space-y-3">
                 {footerLinks.navigation.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Resources Links */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-base lg:text-lg">Resources</h3>
-              <ul className="space-y-3">
-                {footerLinks.resources.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}

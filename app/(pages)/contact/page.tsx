@@ -1,12 +1,9 @@
-import ContactPageContent from "@/components/contact-page-content";
-import { ContactContentService } from "@/services/contacts.services";
+import ContactPageContent from "@/components/contact-page/contact-page-content";
+import { getSiteContext } from "@/lib/site-context";
 
 export default async function ContactPage() {
-  const contactContent = await ContactContentService.getActiveContactContent();
-
-  const contactMethods = contactContent?.methods ?? [];
-  const socialLinks = contactContent?.socialLinks ?? [];
-  const faqs = contactContent?.faqs ?? [];
+  const siteContext = await getSiteContext();
+  const { contactMethods, socialLinks, faqs } = siteContext.contact;
 
   return (
     <ContactPageContent
