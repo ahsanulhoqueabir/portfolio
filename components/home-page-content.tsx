@@ -57,6 +57,8 @@ type HomePageContentProps = {
   aboutStats: HomeStat[];
   heroSubtitle: string;
   aboutParagraph: string;
+  heroImageUrl: string;
+  cvDownloadUrl: string;
 };
 
 const containerVariants = {
@@ -75,10 +77,6 @@ const itemVariants = {
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
-
-const heroImageUrl =
-  "https://cdn.ahsanull.com/Untitled%20(1000%20x%20800%20px)%20(1).png";
-const cvDownloadUrl = "/Ahsanul-Hoque-CV.pdf";
 
 const heroPatternStyle: CSSProperties = {
   backgroundImage: `
@@ -136,6 +134,8 @@ export default function HomePageContent({
   aboutStats,
   heroSubtitle,
   aboutParagraph,
+  heroImageUrl,
+  cvDownloadUrl,
 }: HomePageContentProps) {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef });

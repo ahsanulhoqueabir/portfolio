@@ -131,9 +131,15 @@ const loadSiteContext = unstable_cache(
     };
 
     const home = {
+      heroImageUrl:
+        aboutContent?.heroImageUrl ||
+        "https://cdn.ahsanull.com/Untitled%20(1000%20x%20800%20px)%20(1).png",
+      cvDownloadUrl: aboutContent?.cvDownloadUrl || "/Ahsanul-Hoque-CV.pdf",
       heroSubtitle:
+        aboutContent?.homeHeroSubtitle ||
         "I craft exceptional digital experiences with clean code and modern design. Passionate about building scalable web applications.",
       aboutParagraph:
+        aboutContent?.homeAboutParagraph ||
         "I'm a passionate full-stack developer with 3+ years of experience building modern web applications. I specialize in React, Next.js, and Node.js, with a strong focus on user experience and clean, maintainable code. When I'm not coding, you can find me exploring new technologies or contributing to open-source projects.",
     };
 

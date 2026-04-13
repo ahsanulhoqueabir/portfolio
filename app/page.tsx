@@ -71,6 +71,12 @@ const fallbackHomeCopy = {
     "I'm a passionate full-stack developer with 3+ years of experience building modern web applications. I specialize in React, Next.js, and Node.js, with a strong focus on user experience and clean, maintainable code. When I'm not coding, you can find me exploring new technologies or contributing to open-source projects.",
 };
 
+const fallbackHomeAssets = {
+  heroImageUrl:
+    "https://cdn.ahsanull.com/Untitled%20(1000%20x%20800%20px)%20(1).png",
+  cvDownloadUrl: "/Ahsanul-Hoque-CV.pdf",
+};
+
 type SiteSkillCategory = {
   color: string;
   skills: Array<{
@@ -124,6 +130,13 @@ export default async function HomePage() {
       siteContext.home?.aboutParagraph || fallbackHomeCopy.aboutParagraph,
   };
 
+  const homeAssets = {
+    heroImageUrl:
+      siteContext.home?.heroImageUrl || fallbackHomeAssets.heroImageUrl,
+    cvDownloadUrl:
+      siteContext.home?.cvDownloadUrl || fallbackHomeAssets.cvDownloadUrl,
+  };
+
   return (
     <HomePageContent
       skills={mappedSkills.length ? mappedSkills : fallbackSkills}
@@ -133,6 +146,8 @@ export default async function HomePage() {
       }
       heroSubtitle={homeCopy.heroSubtitle}
       aboutParagraph={homeCopy.aboutParagraph}
+      heroImageUrl={homeAssets.heroImageUrl}
+      cvDownloadUrl={homeAssets.cvDownloadUrl}
     />
   );
 }

@@ -143,6 +143,29 @@ const aboutContentSchema = new Schema(
       type: [aboutStatSchema],
       default: [],
     },
+    heroImageUrl: {
+      type: String,
+      trim: true,
+      default:
+        "https://cdn.ahsanull.com/Untitled%20(1000%20x%20800%20px)%20(1).png",
+    },
+    cvDownloadUrl: {
+      type: String,
+      trim: true,
+      default: "/Ahsanul-Hoque-CV.pdf",
+    },
+    homeHeroSubtitle: {
+      type: String,
+      trim: true,
+      default:
+        "I craft exceptional digital experiences with clean code and modern design. Passionate about building scalable web applications.",
+    },
+    homeAboutParagraph: {
+      type: String,
+      trim: true,
+      default:
+        "I'm a passionate full-stack developer with 3+ years of experience building modern web applications. I specialize in React, Next.js, and Node.js, with a strong focus on user experience and clean, maintainable code. When I'm not coding, you can find me exploring new technologies or contributing to open-source projects.",
+    },
     isActive: {
       type: Boolean,
       default: true,
