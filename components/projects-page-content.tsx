@@ -1,14 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Calendar,
-  Clock,
-  ExternalLink,
-  Github,
-  GitFork,
-  Star,
-} from "lucide-react";
+import { Calendar, ExternalLink, Github, GitFork, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

@@ -23,12 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type {
-  ContactMethodItem,
-  SocialLinkItem,
-  FaqItem,
-  ContactPageContentProps,
-} from "@/types/contact.types";
+import type { ContactPageContentProps } from "@/types/contact.types";
 
 const contactMethodIconMap: Record<
   string,

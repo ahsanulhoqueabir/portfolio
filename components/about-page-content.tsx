@@ -11,12 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type {
-  AboutExperienceItem,
-  AboutValueItem,
-  AboutStatItem,
-  AboutPageContentProps,
-} from "@/types/about.types";
+import type { AboutPageContentProps } from "@/types/about.types";
 
 const containerVariants = {
   hidden: { opacity: 0 },
