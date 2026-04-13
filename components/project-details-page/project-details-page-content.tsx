@@ -1,5 +1,6 @@
 import { CircleCheck, Lightbulb, ShieldAlert } from "lucide-react";
 import type { ProjectDetailsPageContentProps } from "@/types/projects.types";
+import ProjectDetailsFeaturedImageSection from "./project-details-featured-image-section";
 import ProjectDetailsGallerySection from "./project-details-gallery-section";
 import ProjectDetailsHeroSection from "./project-details-hero-section";
 import ProjectDetailsInsightsSection from "./project-details-insights-section";
@@ -45,8 +46,15 @@ export default function ProjectDetailsPageContent({
         project={project}
         publishedDate={publishedDate}
       />
-      <ProjectDetailsGallerySection project={project} />
+      <ProjectDetailsFeaturedImageSection
+        title={project.title}
+        image={project.image || project.images?.[0]}
+      />
       <ProjectDetailsInsightsSection insightSections={insightSections} />
+      <ProjectDetailsGallerySection
+        title={project.title}
+        images={project.images?.slice(1) ?? []}
+      />
       <ProjectDetailsTechStackSection tech={project.tech} />
     </div>
   );

@@ -1,46 +1,55 @@
 import Image from "next/image";
-import type { ProjectItem } from "@/types/projects.types";
 
 type ProjectDetailsGallerySectionProps = {
-  project: ProjectItem;
+  title: string;
+  images: string[];
 };
 
 export default function ProjectDetailsGallerySection({
-  project,
+  title,
+  images,
 }: ProjectDetailsGallerySectionProps) {
+  if (images.length === 0) {
+    return null;
+  }
+
+  const getHeightClass = (index: number) => {
+    const variants = ["h-52", "h-64", "h-72", "h-60", "h-80"];
+    return variants[index % variants.length];
+  };
+
   return (
-    <section className="py-4 sm:py-6">
+    <section className="py-8 sm:py-10">
       <div className="container">
-        <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-[0_20px_70px_-35px_rgba(0,0,0,0.65)]">
-          <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-violet-500 via-fuchsia-500 to-cyan-500" />
-          <Image
-            src={project.image || project.images?.[0] || "/placeholder.jpg"}
-            alt={project.title}
-            width={1200}
-            height={680}
-            className="h-auto w-full object-cover"
-            priority
-          />
+        <div className="mb-4 flex items-center justify-between sm:mb-5">
+          <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
+            Visual Walkthrough
+          </h2>
+          <p className="text-xs text-muted-foreground sm:text-sm">
+            {images.length} screenshots
+          </p>
         </div>
 
-        {project.images && project.images.length > 1 && (
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {project.images.slice(1).map((image, index) => (
+        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [column-fill:_balance]">
+          {images.map((image, index) => (
+            <div
+              key={`${image}-${index}`}
+              className="group mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border/60 bg-muted/15 shadow-[0_20px_40px_-35px_rgba(0,0,0,0.95)] transition-all duration-300 hover:-translate-y-0.5 hover:border-border"
+            >
               <div
-                key={`${image}-${index}`}
-                className="overflow-hidden rounded-xl border border-border/60 bg-muted/20 transition-transform duration-300 hover:-translate-y-0.5"
+                className={`relative w-full overflow-hidden ${getHeightClass(index)}`}
               >
                 <Image
                   src={image}
-                  alt={`${project.title} screenshot ${index + 2}`}
-                  width={400}
-                  height={225}
-                  className="h-auto w-full object-cover"
+                  alt={`${title} screenshot ${index + 2}`}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

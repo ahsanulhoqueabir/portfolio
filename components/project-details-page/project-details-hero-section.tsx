@@ -14,25 +14,11 @@ export default function ProjectDetailsHeroSection({
   publishedDate,
 }: ProjectDetailsHeroSectionProps) {
   return (
-    <section className="relative overflow-hidden py-10 sm:py-12 md:py-16">
+    <section className="relative overflow-hidden py-8 sm:py-10 ">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.16),transparent_42%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.12),transparent_38%)]" />
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
-      <div className="container relative z-10 space-y-6">
-        <Button
-          variant="ghost"
-          asChild
-          className="w-fit px-0 hover:bg-transparent"
-        >
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Projects
-          </Link>
-        </Button>
-
-        <div className="space-y-5">
+      <div className="container relative z-10 space-y-7">
+        <div className="space-y-6">
           <div className="flex flex-wrap items-center gap-2">
             <Badge
               className={
@@ -52,11 +38,28 @@ export default function ProjectDetailsHeroSection({
             </span>
           </div>
 
-          <h1 className="text-balance text-3xl font-black tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            {project.title}
-          </h1>
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="text-pretty text-3xl font-black tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+              {project.title}
+            </h1>
+            <Button
+              variant="outline"
+              asChild
+              className="group mt-1 hidden shrink-0 rounded-full border-border/60 bg-background/75 pl-2 pr-4 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-border hover:bg-background sm:inline-flex"
+            >
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors group-hover:text-foreground"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-muted text-foreground transition-transform duration-300 group-hover:-translate-x-0.5">
+                  <ArrowLeft className="h-3.5 w-3.5" />
+                </span>
+                Back to Projects
+              </Link>
+            </Button>
+          </div>
 
-          <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="w-full text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
             {project.longDescription || project.description}
           </p>
         </div>
