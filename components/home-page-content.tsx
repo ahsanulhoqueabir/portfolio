@@ -55,6 +55,8 @@ type HomePageContentProps = {
   skills: HomeSkill[];
   projects: HomeProject[];
   aboutStats: HomeStat[];
+  heroSubtitle: string;
+  aboutParagraph: string;
 };
 
 const containerVariants = {
@@ -132,6 +134,8 @@ export default function HomePageContent({
   skills,
   projects,
   aboutStats,
+  heroSubtitle,
+  aboutParagraph,
 }: HomePageContentProps) {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef });
@@ -232,9 +236,7 @@ export default function HomePageContent({
                 variants={itemVariants}
                 className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl lg:max-w-xl mx-auto lg:mx-0 leading-relaxed"
               >
-                I craft exceptional digital experiences with clean code and
-                modern design. Passionate about building scalable web
-                applications.
+                {heroSubtitle}
               </motion.p>
 
               <motion.div
@@ -380,12 +382,7 @@ export default function HomePageContent({
               </span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-              I&apos;m a passionate full-stack developer with 3+ years of
-              experience building modern web applications. I specialize in
-              React, Next.js, and Node.js, with a strong focus on user
-              experience and clean, maintainable code. When I&apos;m not coding,
-              you can find me exploring new technologies or contributing to
-              open-source projects.
+              {aboutParagraph}
             </p>
             <div className="grid grid-cols-2 gap-8 max-w-sm mx-auto">
               {aboutStats.map((stat, i) => (

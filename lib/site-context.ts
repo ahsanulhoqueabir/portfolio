@@ -130,11 +130,19 @@ const loadSiteContext = unstable_cache(
       faqs: contactContent?.faqs ?? [],
     };
 
+    const home = {
+      heroSubtitle:
+        "I craft exceptional digital experiences with clean code and modern design. Passionate about building scalable web applications.",
+      aboutParagraph:
+        "I'm a passionate full-stack developer with 3+ years of experience building modern web applications. I specialize in React, Next.js, and Node.js, with a strong focus on user experience and clean, maintainable code. When I'm not coding, you can find me exploring new technologies or contributing to open-source projects.",
+    };
+
     return {
       about,
       projects,
       skills,
       contact,
+      home,
     };
   },
   ["site-context"],

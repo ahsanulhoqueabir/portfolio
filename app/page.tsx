@@ -64,6 +64,13 @@ const fallbackAboutStats = [
   },
 ];
 
+const fallbackHomeCopy = {
+  heroSubtitle:
+    "I craft exceptional digital experiences with clean code and modern design. Passionate about building scalable web applications.",
+  aboutParagraph:
+    "I'm a passionate full-stack developer with 3+ years of experience building modern web applications. I specialize in React, Next.js, and Node.js, with a strong focus on user experience and clean, maintainable code. When I'm not coding, you can find me exploring new technologies or contributing to open-source projects.",
+};
+
 type SiteSkillCategory = {
   color: string;
   skills: Array<{
@@ -110,6 +117,13 @@ export default async function HomePage() {
       color: stat.color,
     }));
 
+  const homeCopy = {
+    heroSubtitle:
+      siteContext.home?.heroSubtitle || fallbackHomeCopy.heroSubtitle,
+    aboutParagraph:
+      siteContext.home?.aboutParagraph || fallbackHomeCopy.aboutParagraph,
+  };
+
   return (
     <HomePageContent
       skills={mappedSkills.length ? mappedSkills : fallbackSkills}
@@ -117,6 +131,8 @@ export default async function HomePage() {
       aboutStats={
         mappedAboutStats.length ? mappedAboutStats : fallbackAboutStats
       }
+      heroSubtitle={homeCopy.heroSubtitle}
+      aboutParagraph={homeCopy.aboutParagraph}
     />
   );
 }
