@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { GTM_ID } from "@/config/env.config";
+import { getSiteContext } from "@/lib/site-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,11 +63,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await getSiteContext();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
