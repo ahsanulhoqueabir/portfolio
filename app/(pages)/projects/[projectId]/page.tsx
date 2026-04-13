@@ -13,20 +13,18 @@ export default async function ProjectDetailsPage({
   params,
 }: ProjectDetailsPageProps) {
   const { projectId } = await params;
-  const parsedId = Number(projectId);
-
-  if (!Number.isInteger(parsedId) || parsedId < 1) {
+  if (!projectId) {
     notFound();
   }
 
-  const dbProject = await ProjectsService.getActiveProjectById(parsedId);
+  const dbProject = await ProjectsService.getActiveProjectById(projectId);
 
   if (!dbProject) {
     notFound();
   }
 
   const project: ProjectItem = {
-    id: dbProject.projectId,
+    id: dbProject._id.toString(),
     title: dbProject.title,
     description: dbProject.description,
     longDescription: dbProject.longDescription,

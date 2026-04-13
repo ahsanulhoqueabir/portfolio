@@ -1,4 +1,5 @@
 import dbConnect from "@/lib/mongodb";
+import { Types } from "mongoose";
 import { ProjectModel, type ProjectDocument } from "@/models/projects.m";
 
 export class ProjectsService {
@@ -14,15 +15,19 @@ export class ProjectsService {
   }
 
   /**
-   * Returns one active project by its numeric projectId.
+   * Returns one active project by MongoDB _id.
    */
   static async getActiveProjectById(
-    projectId: number,
+    id: string,
   ): Promise<ProjectDocument | null> {
+    if (!Types.ObjectId.isValid(id)) {
+      return null;
+    }
+
     await dbConnect();
 
     return ProjectModel.findOne({
-      projectId,
+      _id: id,
       isActive: true,
     }).lean<ProjectDocument>();
   }

@@ -1,4 +1,10 @@
-import { model, models, Schema, type InferSchemaType } from "mongoose";
+import {
+  model,
+  models,
+  Schema,
+  type InferSchemaType,
+  type Types,
+} from "mongoose";
 
 const projectSchema = new Schema(
   {
@@ -114,7 +120,9 @@ const projectSchema = new Schema(
   },
 );
 
-export type ProjectDocument = InferSchemaType<typeof projectSchema>;
+export type ProjectDocument = InferSchemaType<typeof projectSchema> & {
+  _id: Types.ObjectId;
+};
 
 export const ProjectModel =
   models.Project || model<ProjectDocument>("Project", projectSchema);

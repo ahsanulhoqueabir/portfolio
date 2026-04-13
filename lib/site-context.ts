@@ -60,7 +60,7 @@ const loadSiteContext = unstable_cache(
 
     const projects = {
       projects: dbProjects.map((item) => ({
-        id: item.projectId,
+        id: item._id.toString(),
         title: item.title,
         description: item.description,
         longDescription: item.longDescription,
