@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "npx tsx scripts/seed.ts"
+    "seed": "npx tsx scripts/seed.ts",
+    "db:update": "npx tsx scripts/update-db.ts"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
