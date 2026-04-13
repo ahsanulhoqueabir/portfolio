@@ -32,4 +32,5 @@ export type AboutPageContentProps = {
   experiences: AboutExperienceItem[];
   values: AboutValueItem[];
   aboutStats: AboutStatItem[];
+  cvDownloadUrl: string;
 };

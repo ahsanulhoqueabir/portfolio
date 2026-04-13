@@ -1,4 +1,4 @@
-import HomePageContent from "@/components/home-page";
+import HomePageContent from "@/components/home-page-content";
 import { getSiteContext } from "@/lib/site-context";
 
 const fallbackSkills = [

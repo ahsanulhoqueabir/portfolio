@@ -10,12 +10,11 @@ export default function AboutPageContent({
   experiences,
   values,
   aboutStats,
+  cvDownloadUrl,
 }: AboutPageContentProps) {
   const handleResumeDownload = () => {
-    const fileId = "1-AqnRS_mDnDUJbE5JLMQspGv2CNW0aOj";
-    const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
     const link = document.createElement("a");
-    link.href = directDownloadUrl;
+    link.href = cvDownloadUrl;
     link.target = "_blank";
     link.download = "resume.pdf";
     document.body.appendChild(link);
