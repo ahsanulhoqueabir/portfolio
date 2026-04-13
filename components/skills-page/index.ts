@@ -1,1 +1,1 @@
-export { default } from "../skills-page-content";
+export { default } from "./skills-page-content";
