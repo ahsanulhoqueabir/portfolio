@@ -37,7 +37,10 @@ export default function HomeCtaSection() {
             Have a project in mind? I&apos;d love to hear about it and discuss
             how we can bring your ideas to life.
           </p>
-          <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }}>
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+          >
             <Button
               size="lg"
               className="group bg-linear-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 text-white border-0 shadow-xl shadow-violet-500/25 text-base px-8 py-6"

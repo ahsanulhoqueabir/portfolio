@@ -59,12 +59,16 @@ export default function HomeProjectsSection({
                 role="link"
                 tabIndex={0}
                 onClick={() =>
-                  router.push(project.id ? `/projects/${project.id}` : "/projects")
+                  router.push(
+                    project.id ? `/projects/${project.id}` : "/projects",
+                  )
                 }
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    router.push(project.id ? `/projects/${project.id}` : "/projects");
+                    router.push(
+                      project.id ? `/projects/${project.id}` : "/projects",
+                    );
                   }
                 }}
               >

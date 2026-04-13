@@ -1,1 +1,1 @@
-export { default } from "../home-page-content";
+export { default } from "./home-page-content";
