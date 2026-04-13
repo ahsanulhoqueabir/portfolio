@@ -1,4 +1,4 @@
-import SkillsPageContent from "@/components/skills-page";
+import SkillsPageContent from "@/components/skills-page/skills-page-content";
 import { getSiteContext } from "@/lib/site-context";
 
 export default async function SkillsPage() {
