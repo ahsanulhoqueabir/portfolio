@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Calendar,
-  ExternalLink,
-  Github,
-} from "lucide-react";
+import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { ProjectItem } from "@/types/projects.types";
@@ -23,7 +18,11 @@ export default function ProjectDetailsHeroSection({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.16),transparent_42%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.12),transparent_38%)]" />
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/95 to-background" />
       <div className="container relative z-10 space-y-6">
-        <Button variant="ghost" asChild className="w-fit px-0 hover:bg-transparent">
+        <Button
+          variant="ghost"
+          asChild
+          className="w-fit px-0 hover:bg-transparent"
+        >
           <Link
             href="/projects"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"

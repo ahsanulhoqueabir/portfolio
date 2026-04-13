@@ -1,1 +1,1 @@
-export { default } from "../project-details-page-content";
+export { default } from "./project-details-page-content";

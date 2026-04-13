@@ -41,7 +41,10 @@ export default function ProjectDetailsPageContent({
 
   return (
     <div className="min-h-screen">
-      <ProjectDetailsHeroSection project={project} publishedDate={publishedDate} />
+      <ProjectDetailsHeroSection
+        project={project}
+        publishedDate={publishedDate}
+      />
       <ProjectDetailsGallerySection project={project} />
       <ProjectDetailsInsightsSection insightSections={insightSections} />
       <ProjectDetailsTechStackSection tech={project.tech} />
