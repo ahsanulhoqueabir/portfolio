@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import { CheckCircle2, type LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type InsightSection = {
@@ -46,9 +46,12 @@ export default function ProjectDetailsInsightsSection({
                   {section.items.map((item) => (
                     <li
                       key={item}
-                      className="text-sm leading-relaxed text-muted-foreground"
+                      className="flex items-start gap-2 text-sm leading-relaxed text-muted-foreground"
                     >
-                      • {item}
+                      <CheckCircle2
+                        className={`mt-0.5 h-4 w-4 shrink-0 ${section.iconColor}`}
+                      />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
