@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Calendar, ExternalLink, Github, GitFork, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,6 +38,7 @@ const itemVariants = {
 export default function ProjectsPageContent({
   projects,
 }: ProjectsPageContentProps) {
+  const router = useRouter();
   const featuredProjects = projects.filter((p) => p.featured);
   const frontendProjects = projects.filter((p) => p.category === "frontend");
   const backendProjects = projects.filter((p) => p.category === "backend");
@@ -57,7 +59,18 @@ export default function ProjectsPageContent({
       transition={{ delay: index * 0.08 }}
       whileHover={{ y: -6, transition: { duration: 0.2 } }}
     >
-      <Card className="h-full hover:shadow-2xl transition-all duration-300 group border-border/60 hover:border-border overflow-hidden">
+      <Card
+        className="h-full hover:shadow-2xl transition-all duration-300 group border-border/60 hover:border-border overflow-hidden cursor-pointer"
+        role="link"
+        tabIndex={0}
+        onClick={() => router.push(`/projects/${project.id}`)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            router.push(`/projects/${project.id}`);
+          }
+        }}
+      >
         <div
           className={`aspect-video bg-linear-to-br ${project.gradient} relative overflow-hidden`}
         >
@@ -140,7 +153,10 @@ export default function ProjectsPageContent({
               size="sm"
               variant="outline"
               className="flex-1 group/btn hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-400"
-              onClick={() => window.open(project.github, "_blank")}
+              onClick={(event) => {
+                event.stopPropagation();
+                window.open(project.github, "_blank");
+              }}
             >
               <Github className="h-4 w-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
               Code
@@ -149,7 +165,10 @@ export default function ProjectsPageContent({
               <Button
                 size="sm"
                 className="flex-1 group/btn bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0 text-white"
-                onClick={() => window.open(project.demo, "_blank")}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  window.open(project.demo, "_blank");
+                }}
               >
                 <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 transition-transform" />
                 Demo

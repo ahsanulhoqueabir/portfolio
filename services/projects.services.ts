@@ -12,4 +12,18 @@ export class ProjectsService {
       .sort({ publishedAt: -1 })
       .lean<ProjectDocument[]>();
   }
+
+  /**
+   * Returns one active project by its numeric projectId.
+   */
+  static async getActiveProjectById(
+    projectId: number,
+  ): Promise<ProjectDocument | null> {
+    await dbConnect();
+
+    return ProjectModel.findOne({
+      projectId,
+      isActive: true,
+    }).lean<ProjectDocument>();
+  }
 }

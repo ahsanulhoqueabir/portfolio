@@ -27,6 +27,18 @@ const projectSchema = new Schema(
       type: [String],
       default: [],
     },
+    features: {
+      type: [String],
+      default: [],
+    },
+    learnings: {
+      type: [String],
+      default: [],
+    },
+    limitations: {
+      type: [String],
+      default: [],
+    },
     category: {
       type: String,
       required: true,
