@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { CSSProperties, useRef } from "react";
 import {
   ArrowDown,
@@ -138,9 +138,21 @@ export default function HomePageContent({
   cvDownloadUrl,
 }: HomePageContentProps) {
   const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -80]);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    mass: 0.35,
+  });
+  const heroOpacity = useTransform(
+    smoothProgress,
+    [0, 0.7, 1],
+    [1, 0.72, 0.35],
+  );
+  const heroY = useTransform(smoothProgress, [0, 1], [0, -120]);
 
   return (
     <div className="min-h-screen">
