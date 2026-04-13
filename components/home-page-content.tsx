@@ -25,6 +25,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type { HomePageContentProps, HomeService } from "@/types/home.types";
 
 const containerVariants = {
@@ -103,6 +104,7 @@ export default function HomePageContent({
   heroImageUrl,
   cvDownloadUrl,
 }: HomePageContentProps) {
+  const router = useRouter();
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -527,7 +529,24 @@ export default function HomePageContent({
                 viewport={{ once: true }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
               >
-                <Card className="h-full overflow-hidden hover:shadow-2xl transition-all duration-300 group border-border/60 hover:border-border">
+                <Card
+                  className="h-full cursor-pointer overflow-hidden border-border/60 transition-all duration-300 group hover:border-border hover:shadow-2xl"
+                  role="link"
+                  tabIndex={0}
+                  onClick={() =>
+                    router.push(
+                      project.id ? `/projects/${project.id}` : "/projects",
+                    )
+                  }
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      router.push(
+                        project.id ? `/projects/${project.id}` : "/projects",
+                      );
+                    }
+                  }}
+                >
                   <div
                     className={`aspect-video bg-linear-to-br ${project.gradient} relative overflow-hidden`}
                   >
@@ -578,7 +597,10 @@ export default function HomePageContent({
                         size="sm"
                         variant="outline"
                         className="flex-1 group/btn hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-400"
-                        onClick={() => window.open(project.github, "_blank")}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          window.open(project.github, "_blank");
+                        }}
                       >
                         <GithubIcon className="h-4 w-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
                         Code

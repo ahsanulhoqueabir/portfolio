@@ -12,6 +12,7 @@ const fallbackSkills = [
 
 const fallbackProjects = [
   {
+    id: "fallback-department-introductory",
     title: "Department Introductory",
     description: "Full-stack e-commerce solution with React and Node.js",
     tech: ["React", "Node.js", "MongoDB", "Express"],
@@ -24,6 +25,7 @@ const fallbackProjects = [
     orb: "bg-blue-500/30",
   },
   {
+    id: "fallback-briefly60",
     title: "Briefly60",
     description:
       "This is a summarized website for news and articles. It will help you to get the summary of top newspaper of Bangladesh in 60 words.",
@@ -37,6 +39,7 @@ const fallbackProjects = [
     orb: "bg-emerald-500/30",
   },
   {
+    id: "fallback-ieee-jnu",
     title: "IEEE JnU Student Chapter",
     description:
       "This is a website for IEEE JnU.It is used to manage the members and events update of IEEE JnU.",
@@ -103,6 +106,7 @@ export default async function HomePage() {
   const mappedProjects = siteContext.projects.projects
     .slice(0, 3)
     .map((project) => ({
+      id: project.id,
       title: project.title,
       description: project.description,
       tech: project.tech,

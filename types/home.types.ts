@@ -7,6 +7,7 @@ export type HomeSkill = {
 };
 
 export type HomeProject = {
+  id?: string;
   title: string;
   description: string;
   tech: string[];
