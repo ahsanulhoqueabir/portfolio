@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MD Ahsanul Hoque Abir · CSE @ JnU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-deep: #0b2316;
+      --green-mid: #163d24;
+      --green-bright: #22c55e;
+      --green-glow: #4ade80;
+      --gold: #d4a853;
+      --gold-light: #f0c878;
+      --cream: #f4f0e6;
+      --text-muted: #7daa8d;
+      --grid-line: rgba(34,197,94,0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--green-deep);
+      color: var(--cream);
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.45;
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .glow-text { text-shadow: 0 0 28px rgba(74,222,128,0.45), 0 0 55px rgba(74,222,128,0.14); }
+    .gold-glow { text-shadow: 0 0 18px rgba(212,168,83,0.55); }
+
+    /* Contribution cells */
+    .cc { width: 11px; height: 11px; border-radius: 2px; transition: transform 0.14s, box-shadow 0.14s; cursor: default; }
+    .cc:hover { transform: scale(1.5); z-index: 10; position: relative; }
+    .c0 { background: rgba(34,197,94,0.07); }
+    .c1 { background: rgba(34,197,94,0.22); }
+    .c2 { background: rgba(34,197,94,0.42); }
+    .c3 { background: rgba(34,197,94,0.65); }
+    .c4 { background: rgba(74,222,128,0.88); box-shadow: 0 0 5px rgba(74,222,128,0.45); }
+
+    /* Animated gradient border */
+    @keyframes bpulse { 0%,100%{opacity:.35} 50%{opacity:.9} }
+    .aborder { position: relative; }
+    .aborder::before {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+      background: linear-gradient(135deg,var(--green-bright),transparent 40%,var(--gold) 80%,transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation: bpulse 3.5s ease-in-out infinite;
+    }
+
+    /* Animations */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes blink   { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes spin    { to{transform:rotate(360deg)} }
+    @keyframes growW   { from{width:0} to{width:var(--w)} }
+    @keyframes float   { 0%,100%{transform:translateY(0) rotate(0deg);opacity:.5} 50%{transform:translateY(-18px) rotate(180deg);opacity:.25} }
+
+    .fu  { animation: fadeUp .65s ease forwards; }
+    .fi  { animation: fadeIn .85s ease forwards; }
+    .d1  { animation-delay:.10s; opacity:0; }
+    .d2  { animation-delay:.22s; opacity:0; }
+    .d3  { animation-delay:.36s; opacity:0; }
+    .d4  { animation-delay:.50s; opacity:0; }
+    .d5  { animation-delay:.65s; opacity:0; }
+    .d6  { animation-delay:.80s; opacity:0; }
+
+    .cursor::after { content:'|'; animation: blink 1s step-end infinite; color:var(--green-bright); margin-left:2px; }
+    .avatar-ring { background: conic-gradient(var(--green-bright) 0%,var(--gold) 28%,var(--green-glow) 60%,var(--green-bright) 100%); animation: spin 9s linear infinite; }
+    .pbar { animation: growW 1.3s cubic-bezier(.16,1,.3,1) .9s both; }
+    .particle { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--green-bright); animation: float linear infinite; opacity:.4; }
+
+    nav { background: rgba(11,35,22,0.88); backdrop-filter: blur(18px); border-bottom:1px solid rgba(34,197,94,0.11); }
+
+    .card {
+      background: rgba(11,35,22,0.65);
+      border: 1px solid rgba(34,197,94,0.11);
+      backdrop-filter: blur(10px);
+      transition: all .28s ease;
+    }
+    .card:hover {
+      border-color: rgba(34,197,94,0.32);
+      background: rgba(22,61,36,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 44px rgba(0,0,0,.3), 0 0 18px rgba(34,197,94,0.05);
+    }
+    .scard {
+      background: rgba(22,61,36,0.28);
+      border: 1px solid rgba(34,197,94,0.13);
+      transition: all .28s;
+    }
+    .scard:hover { background:rgba(22,61,36,0.5); border-color:rgba(34,197,94,0.38); transform:translateY(-2px); }
+
+    .tag {
+      background: rgba(34,197,94,0.07);
+      border: 1px solid rgba(34,197,94,0.18);
+      color: var(--green-glow);
+      font-size:.71rem; padding:4px 10px; border-radius:4px;
+      transition: all .2s; font-family:'JetBrains Mono',monospace;
+    }
+    .tag:hover { background:rgba(34,197,94,0.14); border-color:rgba(34,197,94,0.38); transform:translateY(-1px); }
+
+    .tdot { width:10px; height:10px; border-radius:50%; background:var(--green-bright); box-shadow:0 0 9px var(--green-bright); flex-shrink:0; }
+    .sec-label { font-family:'JetBrains Mono',monospace; font-size:.63rem; letter-spacing:.2em; color:var(--green-bright); text-transform:uppercase; }
+    .glow-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; }
+    .bd-accent { background: linear-gradient(90deg,#006a4e,#f42a41); }
+
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:var(--green-deep); }
+    ::-webkit-scrollbar-thumb { background:rgba(34,197,94,0.28); border-radius:3px; }
+
+    /* CP badge */
+    .cp-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(212,168,83,0.08); border:1px solid rgba(212,168,83,0.22);
+      color:var(--gold-light); font-size:.72rem; padding:5px 12px; border-radius:6px;
+    }
+
+    /* Separator */
+    .sep { height:1px; background:rgba(34,197,94,0.08); }
+
+    /* Language dot */
+    .ldot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+
+    @media(max-width:640px) { .cc{width:8px;height:8px;} }
+  </style>
+</head>
+<body class="grid-bg min-h-screen">
+
+  <!-- Ambient particles -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="particle" style="left:7%;top:18%;animation-duration:6.5s;"></div>
+    <div class="particle" style="left:22%;top:58%;animation-duration:8s;animation-delay:1s;width:3px;height:3px;"></div>
+    <div class="particle" style="left:68%;top:28%;animation-duration:7.5s;animation-delay:2s;background:var(--gold);"></div>
+    <div class="particle" style="left:83%;top:72%;animation-duration:9s;animation-delay:.5s;"></div>
+    <div class="particle" style="left:44%;top:82%;animation-duration:5.5s;animation-delay:3s;width:3px;height:3px;"></div>
+    <div class="glow-orb" style="width:380px;height:380px;background:rgba(34,197,94,0.05);top:-90px;right:-90px;"></div>
+    <div class="glow-orb" style="width:280px;height:280px;background:rgba(212,168,83,0.04);bottom:80px;left:-70px;"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <svg class="w-5 h-5" fill="rgba(74,222,128,0.75)" viewBox="0 0 24 24">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+        <span class="text-sm font-medium" style="color:rgba(244,240,230,0.65)">ahsanulhoqueabir</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-5 text-xs" style="color:var(--text-muted)">
+        <a href="#about"   class="hover:text-green-400 transition-colors">about</a>
+        <a href="#cp"      class="hover:text-green-400 transition-colors">competitive</a>
+        <a href="#repos"   class="hover:text-green-400 transition-colors">repos</a>
+        <a href="#stack"   class="hover:text-green-400 transition-colors">stack</a>
+        <a href="#contact" class="hover:text-green-400 transition-colors">contact</a>
+      </div>
+      <a href="mailto:contact.ahsanul@gmail.com"
+         class="text-xs px-3 py-1.5 rounded border border-green-500/30 text-green-400 hover:bg-green-500/10 transition-all">
+        hire me →
+      </a>
+    </div>
+  </nav>
+
+  <!-- ───── HERO ───── -->
+  <section id="about" class="relative pt-28 pb-20 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+
+        <!-- Left: Bio -->
+        <div class="flex-1 min-w-0">
+          <div class="sec-label mb-5 fu d1">// profile.json</div>
+
+          <h1 class="fu d2" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;line-height:1.1;color:var(--cream)">
+            MD Ahsanul<br/>
+            <span class="glow-text" style="color:var(--green-glow)">Hoque Abir</span>
+          </h1>
+
+          <p class="mt-4 fu d3 cursor" style="font-size:.82rem;color:var(--gold);font-weight:500">
+            CSE Undergraduate · Jagannath University, Dhaka
+          </p>
+
+          <p class="mt-5 fu d3 max-w-xl" style="font-family:'Crimson Pro',serif;font-size:1.1rem;color:rgba(244,240,230,0.58);font-style:italic;line-height:1.75">
+            A passionate problem solver and web developer — currently deep in Data Structures & Algorithms, solving across multiple online judges while building full-stack web experiences.
+          </p>
+
+          <!-- Competitive Programming badges -->
+          <div id="cp" class="mt-6 fu d4 flex flex-wrap gap-3">
+            <div class="cp-badge">
+              <span>🍴</span>
+              <span>CodeChef</span>
+              <span style="color:var(--gold);font-weight:700">✯✯✯ 3-Star</span>
+            </div>
+            <div class="cp-badge">
+              <span>⚡</span>
+              <span>Codeforces</span>
+              <span style="color:var(--gold);font-weight:700">Max. 1243</span>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="mt-6 fu d4 flex flex-wrap gap-3">
+            <a href="https://ahsanull.com" target="_blank" class="tag flex items-center gap-1.5"><span style="color:var(--gold)">🔗</span> ahsanull.com</a>
+            <a href="https://github.com/ahsanulhoqueabir" target="_blank" class="tag flex items-center gap-1.5"><span>⌗</span> GitHub</a>
+            <a href="https://linkedin.com/in/ahsanulhoqueabir" target="_blank" class="tag flex items-center gap-1.5"><span>in</span> LinkedIn</a>
+            <a href="https://twitter.com/ahsanul_h_abir" target="_blank" class="tag flex items-center gap-1.5"><span>✕</span> @ahsanul_h_abir</a>
+          </div>
+
+          <!-- Stats -->
+          <div class="mt-8 fu d5 flex flex-wrap gap-4">
+            <div class="scard aborder rounded-xl px-5 py-3 text-center">
+              <div class="text-2xl font-bold glow-text" style="color:var(--green-glow);font-family:'JetBrains Mono'">26</div>
+              <div class="text-xs mt-1" style="color:var(--text-muted)">followers</div>
+            </div>
+            <div class="scard rounded-xl px-5 py-3 text-center">
+              <div class="text-2xl font-bold" style="color:var(--gold);font-family:'JetBrains Mono'">38</div>
+              <div class="text-xs mt-1" style="color:var(--text-muted)">following</div>
+            </div>
+            <div class="scard rounded-xl px-5 py-3 text-center">
+              <div class="text-2xl font-bold" style="color:var(--cream);font-family:'JetBrains Mono'">1243</div>
+              <div class="text-xs mt-1" style="color:var(--text-muted)">CF rating</div>
+            </div>
+            <div class="scard rounded-xl px-5 py-3 text-center">
+              <div class="text-2xl font-bold" style="color:var(--green-glow);font-family:'JetBrains Mono'">✯✯✯</div>
+              <div class="text-xs mt-1" style="color:var(--text-muted)">CodeChef</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Avatar + info card -->
+        <div class="fi d3 flex-shrink-0 flex flex-col items-center gap-5">
+          <div class="relative">
+            <div class="avatar-ring rounded-full p-0.5" style="width:154px;height:154px;">
+              <div class="w-full h-full rounded-full overflow-hidden border-2" style="border-color:var(--green-deep);">
+                <img
+                  src="https://avatars.githubusercontent.com/u/113261318?v=4"
+                  alt="Ahsanul Hoque Abir"
+                  class="w-full h-full object-cover"
+                  onerror="this.style.display='none';this.parentNode.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#163d24,#0b2316);color:var(--green-glow);font-size:2.2rem;font-family:Playfair Display,serif;font-weight:900;\'>AH</div>'"
+                />
+              </div>
+            </div>
+            <div class="absolute bottom-2 right-2 w-4 h-4 rounded-full border-2"
+              style="background:var(--green-bright);border-color:var(--green-deep);box-shadow:0 0 8px var(--green-bright)">
+            </div>
+          </div>
+
+          <!-- Info card -->
+          <div class="aborder rounded-xl p-5 w-52 text-center" style="background:rgba(22,61,36,0.22);backdrop-filter:blur(10px);">
+            <div class="flex items-center justify-center gap-1.5 mb-3">
+              <div class="bd-accent rounded-sm" style="width:18px;height:12px;"></div>
+              <span class="text-xs" style="color:var(--text-muted)">Dhaka, Bangladesh</span>
+            </div>
+            <div class="space-y-2 text-xs text-left">
+              <div class="flex items-start gap-2" style="color:var(--text-muted)">
+                <span style="color:var(--green-bright);flex-shrink:0">🎓</span>
+                <span>CSE, Jagannath University</span>
+              </div>
+              <div class="flex items-center gap-2" style="color:var(--text-muted)">
+                <span style="color:var(--green-bright)">🎯</span>
+                <span>Focusing</span>
+              </div>
+              <div class="flex items-center gap-2" style="color:var(--text-muted)">
+                <span style="color:var(--green-bright)">📧</span>
+                <span style="font-size:.64rem">contact.ahsanul@gmail.com</span>
+              </div>
+              <div class="flex items-center gap-2" style="color:var(--text-muted)">
+                <span style="color:var(--green-bright)">🌐</span>
+                <span>ahsanull.com</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-3 border-t sep text-xs" style="color:var(--gold)">
+              Learning DSA · OJs daily
+            </div>
+          </div>
+
+          <!-- Achievements -->
+          <div class="flex gap-2 justify-center">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-base" style="background:rgba(22,61,36,0.5);border:1px solid rgba(34,197,94,0.2);" title="Pull Shark">🦈</div>
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-base" style="background:rgba(22,61,36,0.5);border:1px solid rgba(34,197,94,0.2);" title="Quickdraw">⚡</div>
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-base" style="background:rgba(22,61,36,0.5);border:1px solid rgba(34,197,94,0.2);" title="YOLO">🎯</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── CONTRIBUTION GRAPH ───── -->
+  <section class="py-14 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="sec-label mb-4">// contribution_graph.render()</div>
+      <div class="card rounded-xl p-5 sm:p-6 overflow-x-auto">
+        <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--cream)">
+            Contributions in the last year
+          </h2>
+          <div class="flex items-center gap-2 text-xs" style="color:var(--text-muted)">
+            <span>Less</span>
+            <div class="cc c0"></div><div class="cc c1"></div><div class="cc c2"></div><div class="cc c3"></div><div class="cc c4"></div>
+            <span>More</span>
+          </div>
+        </div>
+        <!-- Month row -->
+        <div class="flex gap-1 pl-8 mb-1 text-xs" style="color:var(--text-muted)">
+          <span style="width:52px">May</span><span style="width:52px">Jun</span><span style="width:52px">Jul</span>
+          <span style="width:52px">Aug</span><span style="width:52px">Sep</span><span style="width:52px">Oct</span>
+          <span style="width:52px">Nov</span><span style="width:52px">Dec</span><span style="width:52px">Jan</span>
+          <span style="width:52px">Feb</span><span style="width:52px">Mar</span><span style="width:44px">Apr</span>
+        </div>
+        <div id="cg" class="flex gap-1 min-w-max"></div>
+      </div>
+
+      <!-- Activity breakdown -->
+      <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="card rounded-xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs" style="color:var(--text-muted)">Commits</span>
+            <span class="text-xl font-bold glow-text" style="color:var(--green-glow);font-family:'JetBrains Mono'">78%</span>
+          </div>
+          <div class="h-2 rounded-full" style="background:rgba(34,197,94,0.09)">
+            <div class="h-full rounded-full pbar" style="--w:78%;background:linear-gradient(90deg,var(--green-bright),var(--green-glow))"></div>
+          </div>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs" style="color:var(--text-muted)">Pull Requests</span>
+            <span class="text-xl font-bold" style="color:var(--gold);font-family:'JetBrains Mono'">14%</span>
+          </div>
+          <div class="h-2 rounded-full" style="background:rgba(212,168,83,0.09)">
+            <div class="h-full rounded-full pbar" style="--w:14%;background:linear-gradient(90deg,var(--gold),var(--gold-light))"></div>
+          </div>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs" style="color:var(--text-muted)">Issues & Reviews</span>
+            <span class="text-xl font-bold" style="color:rgba(244,240,230,0.7);font-family:'JetBrains Mono'">8%</span>
+          </div>
+          <div class="h-2 rounded-full" style="background:rgba(244,240,230,0.06)">
+            <div class="h-full rounded-full pbar" style="--w:8%;background:rgba(244,240,230,0.28)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── PINNED REPOS ───── -->
+  <section id="repos" class="py-14 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="sec-label mb-3">// pinned.repositories</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;margin-bottom:1.4rem;color:var(--cream)">Featured Work</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Batch Introductory -->
+        <div class="card aborder rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs px-2 py-0.5 rounded" style="background:rgba(34,197,94,0.09);color:var(--green-bright);border:1px solid rgba(34,197,94,0.2)">Public</span>
+            <a href="https://github.com/ahsanulhoqueabir" target="_blank" style="color:var(--cream);font-weight:600;font-size:.93rem;" class="hover:text-green-400 transition-colors">ahsanulhoqueabir / batch-introductory</a>
+          </div>
+          <p class="text-sm mb-4 leading-relaxed" style="color:rgba(244,240,230,0.52);font-family:'Crimson Pro',serif;font-size:1rem">
+            A React app built for my department's batch introductory event — showcasing classmates' profiles with smooth UI and responsive design.
+          </p>
+          <div class="flex items-center gap-4 text-xs" style="color:var(--text-muted)">
+            <span class="flex items-center gap-1.5">
+              <span class="ldot" style="background:#f7df1e;box-shadow:0 0 5px #f7df1e60"></span> JavaScript
+            </span>
+            <span>⭐ 4</span>
+          </div>
+        </div>
+
+        <!-- Job Portal -->
+        <div class="card rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs px-2 py-0.5 rounded" style="background:rgba(34,197,94,0.09);color:var(--green-bright);border:1px solid rgba(34,197,94,0.2)">Public</span>
+            <a href="https://github.com/ahsanulhoqueabir" target="_blank" style="color:var(--cream);font-weight:600;font-size:.93rem;" class="hover:text-green-400 transition-colors">ahsanulhoqueabir / job-portal</a>
+          </div>
+          <p class="text-sm mb-4 leading-relaxed" style="color:rgba(244,240,230,0.52);font-family:'Crimson Pro',serif;font-size:1rem">
+            Applicants can view job vacancies and apply directly — a full-stack job portal with role-based access, built with the MERN stack.
+          </p>
+          <div class="flex items-center gap-4 text-xs" style="color:var(--text-muted)">
+            <span class="flex items-center gap-1.5">
+              <span class="ldot" style="background:#3178c6;box-shadow:0 0 5px #3178c660"></span> TypeScript
+            </span>
+            <span>⭐ 6</span>
+            <span>⑂ 2</span>
+          </div>
+        </div>
+
+        <!-- React Template -->
+        <div class="card rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs px-2 py-0.5 rounded" style="background:rgba(34,197,94,0.09);color:var(--green-bright);border:1px solid rgba(34,197,94,0.2)">Public</span>
+            <a href="https://github.com/ahsanulhoqueabir/react-template" target="_blank" style="color:var(--cream);font-weight:600;font-size:.93rem;" class="hover:text-green-400 transition-colors">ahsanulhoqueabir / react-template</a>
+          </div>
+          <p class="text-sm mb-4 leading-relaxed" style="color:rgba(244,240,230,0.52);font-family:'Crimson Pro',serif;font-size:1rem">
+            A personal React starter template — includes <code class="text-green-400">cn()</code> utility, daisyUI, React Icons, React Router, Lottie animation, and ESLint config out of the box.
+          </p>
+          <div class="flex items-center flex-wrap gap-3 text-xs" style="color:var(--text-muted)">
+            <span class="flex items-center gap-1.5">
+              <span class="ldot" style="background:#f7df1e;box-shadow:0 0 5px #f7df1e60"></span> JavaScript
+            </span>
+            <span class="text-green-400 px-1.5 py-0.5 rounded" style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.15)">starter template</span>
+          </div>
+        </div>
+
+        <!-- Portfolio / README -->
+        <div class="card rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs px-2 py-0.5 rounded" style="background:rgba(34,197,94,0.09);color:var(--green-bright);border:1px solid rgba(34,197,94,0.2)">Public</span>
+            <a href="https://github.com/ahsanulhoqueabir" target="_blank" style="color:var(--cream);font-weight:600;font-size:.93rem;" class="hover:text-green-400 transition-colors">ahsanulhoqueabir / ahsanulhoqueabir</a>
+          </div>
+          <p class="text-sm mb-4 leading-relaxed" style="color:rgba(244,240,230,0.52);font-family:'Crimson Pro',serif;font-size:1rem">
+            GitHub profile README — a living document that tells the story of a developer in progress: DSA grind, competitive programming, and web dev projects.
+          </p>
+          <div class="flex items-center gap-4 text-xs" style="color:var(--text-muted)">
+            <span class="flex items-center gap-1.5">
+              <span class="ldot" style="background:#e34c26;box-shadow:0 0 5px #e34c2660"></span> Markdown / HTML
+            </span>
+            <span class="px-1.5 py-0.5 rounded" style="background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.18);color:var(--gold);font-size:.7rem">profile readme</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── TECH STACK ───── -->
+  <section id="stack" class="py-14 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="sec-label mb-3">// tech_stack.list()</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;margin-bottom:1.4rem;color:var(--cream)">Tech Stack</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <div class="card rounded-xl p-5">
+          <h3 class="text-xs mb-4" style="color:var(--green-bright);letter-spacing:.15em;text-transform:uppercase">Languages</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">JavaScript</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">C</span>
+            <span class="tag">C++</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl p-5">
+          <h3 class="text-xs mb-4" style="color:var(--gold);letter-spacing:.15em;text-transform:uppercase">Frontend</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">React.js</span>
+            <span class="tag">React Native</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Expo</span>
+            <span class="tag">TailwindCSS</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl p-5">
+          <h3 class="text-xs mb-4" style="color:rgba(244,240,230,0.5);letter-spacing:.15em;text-transform:uppercase">Backend</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express.js</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="card rounded-xl p-5">
+          <h3 class="text-xs mb-4" style="color:var(--green-bright);letter-spacing:.15em;text-transform:uppercase">Scraping / Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Puppeteer</span>
+            <span class="tag">Cheerio</span>
+            <span class="tag">Axios</span>
+            <span class="tag">Serial</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CP Section -->
+      <div class="mt-6 card rounded-xl p-6">
+        <h3 class="text-xs mb-5" style="color:var(--gold);letter-spacing:.15em;text-transform:uppercase">Competitive Programming</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <span class="text-lg">🍴</span>
+                <div>
+                  <div class="text-sm font-medium" style="color:var(--cream)">CodeChef</div>
+                  <div class="text-xs" style="color:var(--text-muted)">3-Star Competitive Programmer</div>
+                </div>
+              </div>
+              <span class="font-bold" style="color:var(--gold);font-size:1.1rem">✯✯✯</span>
+            </div>
+            <div class="h-1.5 rounded-full" style="background:rgba(212,168,83,0.1)">
+              <div class="h-full rounded-full pbar" style="--w:62%;background:linear-gradient(90deg,var(--gold),var(--gold-light))"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <span class="text-lg">⚡</span>
+                <div>
+                  <div class="text-sm font-medium" style="color:var(--cream)">Codeforces</div>
+                  <div class="text-xs" style="color:var(--text-muted)">Max Rating: 1243 (Pupil)</div>
+                </div>
+              </div>
+              <span class="font-bold glow-text" style="color:var(--green-glow);font-size:1.1rem">1243</span>
+            </div>
+            <div class="h-1.5 rounded-full" style="background:rgba(34,197,94,0.09)">
+              <div class="h-full rounded-full pbar" style="--w:45%;background:linear-gradient(90deg,var(--green-bright),var(--green-glow))"></div>
+            </div>
+          </div>
+        </div>
+        <p class="mt-4 text-xs" style="color:var(--text-muted)">
+          Currently learning DSA · Solving problems in several online judges daily
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── ACTIVITY ───── -->
+  <section class="py-14 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="sec-label mb-3">// recent_activity.feed()</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;margin-bottom:1.4rem;color:var(--cream)">Activity Feed</h2>
+      <div class="card rounded-xl p-6 space-y-5">
+
+        <div class="flex gap-4 items-start">
+          <div class="tdot mt-1.5"></div>
+          <div class="flex-1">
+            <div class="text-sm flex flex-wrap items-center gap-2">
+              <span style="color:var(--cream)">Created repo</span>
+              <a href="https://github.com/ahsanulhoqueabir/react-template" target="_blank" class="hover:text-green-400 transition-colors font-medium" style="color:var(--green-bright)">ahsanulhoqueabir/react-template</a>
+            </div>
+            <p class="text-xs mt-1" style="color:var(--text-muted)">Added cn() utility, daisyUI, Lottie · React Router · ESLint config</p>
+            <div class="text-xs mt-1" style="color:rgba(141,184,154,0.45)">Recently</div>
+          </div>
+        </div>
+        <div class="sep"></div>
+
+        <div class="flex gap-4 items-start">
+          <div class="tdot mt-1.5" style="background:var(--gold);box-shadow:0 0 9px var(--gold)"></div>
+          <div class="flex-1">
+            <div class="text-sm flex flex-wrap items-center gap-2">
+              <span style="color:var(--cream)">Pushed to</span>
+              <a href="https://github.com/ahsanulhoqueabir" target="_blank" class="hover:text-green-400 transition-colors font-medium" style="color:var(--gold-light)">job-portal</a>
+              <span class="text-xs px-1.5 py-0.5 rounded" style="background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.18);color:var(--gold)">MERN Stack</span>
+            </div>
+            <p class="text-xs mt-1" style="color:var(--text-muted)">Job vacancy listing · applicant apply flow · role-based auth</p>
+            <div class="text-xs mt-1" style="color:rgba(141,184,154,0.45)">Earlier this month</div>
+          </div>
+        </div>
+        <div class="sep"></div>
+
+        <div class="flex gap-4 items-start">
+          <div class="tdot mt-1.5"></div>
+          <div class="flex-1">
+            <div class="text-sm flex flex-wrap items-center gap-2">
+              <span style="color:var(--cream)">Pushed to</span>
+              <a href="https://github.com/ahsanulhoqueabir" target="_blank" class="hover:text-green-400 transition-colors font-medium" style="color:var(--green-bright)">batch-introductory</a>
+            </div>
+            <p class="text-xs mt-1" style="color:var(--text-muted)">Department batch introductory React app · UI polish</p>
+            <div class="text-xs mt-1" style="color:rgba(141,184,154,0.45)">Last month</div>
+          </div>
+        </div>
+        <div class="sep"></div>
+
+        <div class="flex gap-4 items-start">
+          <div class="tdot mt-1.5" style="background:rgba(244,240,230,0.4);box-shadow:0 0 9px rgba(244,240,230,0.2)"></div>
+          <div class="flex-1">
+            <div class="text-sm" style="color:var(--cream)">Competitive Programming submissions</div>
+            <p class="text-xs mt-1" style="color:var(--text-muted)">Codeforces, CodeChef — consistent daily problem solving across OJs</p>
+            <div class="text-xs mt-1" style="color:rgba(141,184,154,0.45)">Ongoing</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── CONTACT ───── -->
+  <section id="contact" class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="card aborder rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div style="width:280px;height:280px;background:rgba(34,197,94,0.05);filter:blur(60px);border-radius:50%;"></div>
+        </div>
+        <div class="relative">
+          <div class="sec-label mb-4 mx-auto w-fit">// let's.connect()</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:.9rem;color:var(--cream)">
+            Open to Opportunities
+          </h2>
+          <p class="max-w-lg mx-auto mb-8" style="font-family:'Crimson Pro',serif;font-size:1.08rem;color:rgba(244,240,230,0.52);font-style:italic;line-height:1.72">
+            Whether it's an internship, collaboration, or just geeking out over algorithms — I'm always up for a good conversation.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="mailto:contact.ahsanul@gmail.com"
+               class="px-6 py-3 rounded-lg font-medium text-sm flex items-center gap-2 transition-all hover:opacity-90"
+               style="background:var(--green-bright);color:var(--green-deep);font-family:'JetBrains Mono'">
+              ✉ contact.ahsanul@gmail.com
+            </a>
+            <a href="https://ahsanull.com" target="_blank"
+               class="px-6 py-3 rounded-lg font-medium text-sm flex items-center gap-2 transition-all hover:bg-green-500/10"
+               style="border:1px solid rgba(34,197,94,0.28);color:var(--green-glow);font-family:'JetBrains Mono'">
+              🌐 ahsanull.com →
+            </a>
+            <a href="https://linkedin.com/in/ahsanulhoqueabir" target="_blank"
+               class="px-6 py-3 rounded-lg font-medium text-sm flex items-center gap-2 transition-all hover:bg-blue-500/10"
+               style="border:1px solid rgba(100,180,255,0.2);color:rgba(150,200,255,0.8);font-family:'JetBrains Mono'">
+              in LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid rgba(34,197,94,0.09)" class="py-7 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="text-xs" style="color:var(--text-muted)">
+        <span style="color:var(--green-bright)">ahsanulhoqueabir</span> · CSE @ Jagannath University · Dhaka, Bangladesh
+      </div>
+      <div class="text-xs flex items-center gap-1" style="color:rgba(125,170,141,0.35)">
+        <span>Built with</span><span style="color:var(--green-bright)">♥</span><span>and compiler errors</span>
+      </div>
+      <div class="text-xs" style="color:rgba(125,170,141,0.28)">© 2026 MD Ahsanul Hoque Abir</div>
+    </div>
+  </footer>
+
+  <script>
+    // Build contribution graph
+    (function() {
+      const container = document.getElementById('cg');
+      if (!container) return;
+
+      // Day labels
+      const dl = document.createElement('div');
+      dl.style.cssText = 'display:flex;flex-direction:column;gap:4px;margin-right:8px;font-size:9px;color:var(--text-muted);padding-top:1px;';
+      ['','Mon','','Wed','','Fri',''].forEach(d => {
+        const s = document.createElement('div');
+        s.textContent = d;
+        s.style.cssText = 'height:11px;line-height:11px;';
+        dl.appendChild(s);
+      });
+      container.appendChild(dl);
+
+      // 53 weeks
+      for (let w = 0; w < 53; w++) {
+        const col = document.createElement('div');
+        col.style.cssText = 'display:flex;flex-direction:column;gap:4px;';
+        const recent = w > 44 ? 0.65 : w > 36 ? 0.45 : w > 24 ? 0.3 : 0.18;
+        for (let d = 0; d < 7; d++) {
+          const cell = document.createElement('div');
+          cell.className = 'cc';
+          const r = Math.random();
+          let lv = 0;
+          if      (r < 0.08 + recent) lv = 4;
+          else if (r < 0.2  + recent) lv = 3;
+          else if (r < 0.38 + recent) lv = 2;
+          else if (r < 0.55 + recent) lv = 1;
+          cell.classList.add('c' + lv);
+          col.appendChild(cell);
+        }
+        container.appendChild(col);
+      }
+    })();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a =>
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+    );
+  </script>
+</body>
+</html>
