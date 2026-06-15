@@ -7,6 +7,7 @@ export const turnstileConfig = {
   secretKey: process.env.TURNSTILE_SECRET_KEY!,
 };
 
+export const resume = "https://cdn.ahsanull.com/resume-v2.pdf";
 export const GTM_ID: string = process.env.NEXT_PUBLIC_GTM_ID!;
 
 export const FORM_ID: string = process.env.FORM_ID!;

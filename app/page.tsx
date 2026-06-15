@@ -77,7 +77,7 @@ const fallbackHomeCopy = {
 const fallbackHomeAssets = {
   heroImageUrl:
     "https://cdn.ahsanull.com/Untitled%20(1000%20x%20800%20px)%20(1).png",
-  cvDownloadUrl: "https://cdn.ahsanull.com/resume-ahsanul.pdf",
+  cvDownloadUrl: "https://cdn.ahsanull.com/resume-v2.pdf",
 };
 
 type SiteSkillCategory = {

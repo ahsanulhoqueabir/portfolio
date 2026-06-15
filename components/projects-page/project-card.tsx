@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Calendar, ExternalLink, Github, GitFork, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,11 +18,47 @@ type ProjectCardProps = {
   onOpenProject: (projectId: string) => void;
 };
 
+// SVG Border Draw Variant
+const borderVariants = {
+  initial: { pathLength: 0, opacity: 0 },
+  hover: {
+    pathLength: 1,
+    opacity: 1,
+    transition: { duration: 0.8, ease: "easeInOut" },
+  },
+};
+
 export default function ProjectCard({
   project,
   index,
   onOpenProject,
 }: ProjectCardProps) {
+  // 3D Parallax Tilt Values
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-0.5, 0.5], [7, -7]);
+  const rotateY = useTransform(x, [-0.5, 0.5], [-7, 7]);
+
+  const springX = useSpring(rotateX, { stiffness: 250, damping: 20 });
+  const springY = useSpring(rotateY, { stiffness: 250, damping: 20 });
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const el = event.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = event.clientX - rect.left - width / 2;
+    const mouseY = event.clientY - rect.top - height / 2;
+    x.set(mouseX / width);
+    y.set(mouseY / height);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <motion.div
       variants={itemVariants}
@@ -30,13 +66,21 @@ export default function ProjectCard({
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08 }}
-      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+      style={{
+        rotateX: springX,
+        rotateY: springY,
+        transformStyle: "preserve-3d",
+        perspective: 1000,
+      }}
+      className="h-full"
     >
       <Card
-        className="h-full hover:shadow-2xl transition-all duration-300 group border-border/60 hover:border-border overflow-hidden cursor-pointer"
+        className="h-full hover:shadow-2xl transition-all duration-300 group border-border/40 hover:border-transparent overflow-hidden cursor-pointer bg-card/35 backdrop-blur-md relative"
         role="link"
         tabIndex={0}
         onClick={() => onOpenProject(project.id)}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -44,6 +88,28 @@ export default function ProjectCard({
           }
         }}
       >
+        {/* SVG Border Drawing overlay */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none z-30"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <motion.rect
+            x="0.5"
+            y="0.5"
+            width="99"
+            height="99"
+            rx="8"
+            stroke="currentColor"
+            className="text-violet-500/80 dark:text-violet-400/80"
+            strokeWidth="0.8"
+            fill="none"
+            variants={borderVariants}
+            initial="initial"
+            whileHover="hover"
+          />
+        </svg>
+
         <div
           className={`aspect-video bg-linear-to-br ${project.gradient} relative overflow-hidden`}
         >
@@ -61,7 +127,7 @@ export default function ProjectCard({
           </div>
           {project.featured && (
             <div className="absolute top-3 right-3 z-10">
-              <Badge className="bg-linear-to-r from-violet-600 to-indigo-600 text-white border-0 text-xs shadow-lg">
+              <Badge className="bg-linear-to-r from-violet-600 to-indigo-600 text-white border-0 text-xs shadow-lg font-semibold py-0.5 px-2">
                 Featured
               </Badge>
             </div>
@@ -70,8 +136,8 @@ export default function ProjectCard({
             <Badge
               className={
                 project.status === "completed"
-                  ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 text-xs"
-                  : "bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30 text-xs"
+                  ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 text-xs font-semibold py-0.5 px-2"
+                  : "bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30 text-xs font-semibold py-0.5 px-2"
               }
             >
               {project.status === "completed" ? "Completed" : "In Progress"}
@@ -82,21 +148,21 @@ export default function ProjectCard({
           />
         </div>
 
-        <CardHeader>
+        <CardHeader className="pt-6">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <CardTitle
-                className={`group-hover:${project.accentColor} transition-colors`}
+                className={`group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors font-bold text-xl tracking-tight`}
               >
                 {project.title}
               </CardTitle>
-              <CardDescription className="mt-2 line-clamp-2">
+              <CardDescription className="mt-2 line-clamp-2 text-sm font-medium">
                 {project.description}
               </CardDescription>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-muted-foreground pt-1">
+          <div className="flex items-center gap-4 text-xs font-semibold text-muted-foreground pt-2">
             <div className="flex items-center gap-1">
               <Star className="h-3.5 w-3.5" />
               {project.stars}
@@ -112,10 +178,10 @@ export default function ProjectCard({
           </div>
         </CardHeader>
 
-        <CardContent>
-          <div className="flex flex-wrap gap-2 mb-5">
+        <CardContent className="pb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {project.tech.map((tech) => (
-              <Badge key={tech} variant="secondary" className="text-xs">
+              <Badge key={tech} variant="secondary" className="text-xs font-semibold py-0.5 px-2">
                 {tech}
               </Badge>
             ))}
@@ -125,7 +191,7 @@ export default function ProjectCard({
             <Button
               size="sm"
               variant="outline"
-              className="flex-1 group/btn hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-400"
+              className="flex-1 group/btn hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-400 cursor-none font-semibold text-xs"
               onClick={(event) => {
                 event.stopPropagation();
                 window.open(project.github, "_blank");
@@ -137,7 +203,7 @@ export default function ProjectCard({
             {project.demo && (
               <Button
                 size="sm"
-                className="flex-1 group/btn bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0 text-white"
+                className="flex-1 group/btn bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 border-0 text-white cursor-none font-semibold text-xs"
                 onClick={(event) => {
                   event.stopPropagation();
                   window.open(project.demo, "_blank");
