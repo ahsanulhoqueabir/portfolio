@@ -1,3 +1,5 @@
+import { Sparkles, Users, Zap, Briefcase, Smile, Calendar, type LucideIcon } from "lucide-react";
+
 export const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -15,17 +17,18 @@ export const itemVariants = {
   },
 };
 
-const iconEmojiMap: Record<string, string> = {
-  "clean code": "✨",
-  collaboration: "🤝",
-  innovation: "⚡",
-  projects: "📦",
-  happy: "😊",
-  years: "📅",
+const iconMap: Record<string, LucideIcon> = {
+  "clean code": Sparkles,
+  collaboration: Users,
+  innovation: Zap,
+  projects: Briefcase,
+  happy: Smile,
+  years: Calendar,
 };
 
 const normalizeIconKey = (value: string) => value.trim().toLowerCase();
 
-export const getEmoji = (key: string) => {
-  return iconEmojiMap[normalizeIconKey(key)] || "💫";
+export const getAboutIcon = (key: string): LucideIcon => {
+  return iconMap[normalizeIconKey(key)] || Sparkles;
 };
+

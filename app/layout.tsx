@@ -8,6 +8,9 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { GTM_ID } from "@/config/env.config";
 import { getSiteContext } from "@/lib/site-context";
+import CustomCursor from "@/components/shared/custom-cursor";
+import InteractiveBg from "@/components/shared/interactive-bg";
+import PageWrapper from "@/components/shared/page-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -98,10 +101,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col">
+          <InteractiveBg />
+          <CustomCursor />
+          <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="mx-auto flex w-full max-w-screen-2xl flex-1 flex-col pb-24 md:pb-0">
-              {children}
+              <PageWrapper>{children}</PageWrapper>
             </main>
             <Footer />
           </div>
